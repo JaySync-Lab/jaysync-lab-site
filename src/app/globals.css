@@ -1,0 +1,24 @@
+@import "tailwindcss";
+@import "fumadocs-ui/style.css";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, "Courier New", monospace;
+
+  --color-lab-bg:      #020617;
+  --color-lab-surface: #0f172a;
+  --color-lab-card:    #1e293b;
+  --color-lab-border:  #334155;
+  --color-lab-text:    #cbd5e1;
+  --color-lab-muted:   #64748b;
+  --color-lab-signal:  #38bdf8;
+  --color-lab-up:      #22c55e;
+  --color-lab-down:    #ef4444;
+  --color-lab-amber:   #f59e0b;
+
+  --color-band-core:        #3b82f6;
+  --color-band-automation:  #a855f7;
+  --color-band-controllers: #f59e0b;
+  --color-band-media:       #22c55e;
+  --color-band-sandbox:     #475569;
+}
