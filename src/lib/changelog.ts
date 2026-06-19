@@ -10,7 +10,7 @@ export interface ChangelogEntry {
 export function getChangelog(): ChangelogEntry[] {
   const filePath = path.join(process.cwd(), 'content', 'CHANGELOG.md');
   const raw = fs.readFileSync(filePath, 'utf-8');
-  const lines = raw.split('\n');
+  const lines = raw.split(/\r?\n/);
 
   const groups: ChangelogEntry[] = [];
   let current: ChangelogEntry | null = null;

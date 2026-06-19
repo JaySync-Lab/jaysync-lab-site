@@ -5,20 +5,89 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, "Courier New", monospace;
 
-  --color-lab-bg:      #020617;
-  --color-lab-surface: #0f172a;
-  --color-lab-card:    #1e293b;
-  --color-lab-border:  #334155;
-  --color-lab-text:    #cbd5e1;
-  --color-lab-muted:   #64748b;
-  --color-lab-signal:  #38bdf8;
-  --color-lab-up:      #22c55e;
-  --color-lab-down:    #ef4444;
-  --color-lab-amber:   #f59e0b;
+  /* ── Site zone (blue) ── */
+  --color-site-bg:         #0a0f1f;
+  --color-site-surface:    #111726;
+  --color-site-border:     #1e293b;
+  --color-site-blue:       #2563eb;
+  --color-site-blue-light: #60a5fa;
+  --color-site-blue-deep:  #1d4ed8;
+  --color-site-text:       #f1f5f9;
+  --color-site-muted:      #94a3b8;
 
-  --color-band-core:        #3b82f6;
-  --color-band-automation:  #a855f7;
-  --color-band-controllers: #f59e0b;
-  --color-band-media:       #22c55e;
-  --color-band-sandbox:     #475569;
+  /* semantic (used sparingly) */
+  --color-site-up:    #22c55e;
+  --color-site-down:  #ef4444;
+  --color-site-amber: #f59e0b;
+}
+
+/* ───────────────────────────────────────────────
+   Site-zone keyframes (full-send motion)
+   ─────────────────────────────────────────────── */
+@keyframes breathe {
+  from { transform: translateX(-50%) scale(1);    opacity: 0.6; }
+  to   { transform: translateX(-50%) scale(1.12); opacity: 1;   }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1;   transform: scale(1);   }
+  50%      { opacity: 0.4; transform: scale(0.85); }
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ───────────────────────────────────────────────
+   Docs zone — monochrome grey (two shades, both modes)
+   Fumadocs reads these CSS variables.
+   ─────────────────────────────────────────────── */
+.docs-zone {
+  --color-fd-background: #ffffff;
+  --color-fd-foreground: #111317;
+  --color-fd-muted: #f7f8fa;
+  --color-fd-muted-foreground: #4b5563;
+  --color-fd-popover: #ffffff;
+  --color-fd-popover-foreground: #111317;
+  --color-fd-card: #f7f8fa;
+  --color-fd-card-foreground: #111317;
+  --color-fd-border: #eceef1;
+  --color-fd-primary: #111317;
+  --color-fd-primary-foreground: #ffffff;
+  --color-fd-secondary: #f7f8fa;
+  --color-fd-secondary-foreground: #111317;
+  --color-fd-accent: #eceef1;
+  --color-fd-accent-foreground: #111317;
+  --color-fd-ring: #9ca3af;
+}
+
+.dark .docs-zone {
+  --color-fd-background: #111317;
+  --color-fd-foreground: #f3f4f6;
+  --color-fd-muted: #0c0e11;
+  --color-fd-muted-foreground: #9ca3af;
+  --color-fd-popover: #0c0e11;
+  --color-fd-popover-foreground: #f3f4f6;
+  --color-fd-card: #0c0e11;
+  --color-fd-card-foreground: #f3f4f6;
+  --color-fd-border: #1c1f25;
+  --color-fd-primary: #f3f4f6;
+  --color-fd-primary-foreground: #111317;
+  --color-fd-secondary: #1c1f25;
+  --color-fd-secondary-foreground: #f3f4f6;
+  --color-fd-accent: #1c1f25;
+  --color-fd-accent-foreground: #f3f4f6;
+  --color-fd-ring: #4b5563;
 }
