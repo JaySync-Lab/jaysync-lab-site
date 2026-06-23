@@ -29,13 +29,13 @@ export default function HomePage() {
         {/* Constellation + intro */}
         <SectionReveal className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20" staggerChildren>
           <div>
-            <p className="font-mono text-[#60a5fa] text-xs uppercase tracking-widest mb-4">
+            <p className="font-mono text-xs uppercase tracking-widest mb-4" style={{ color: '#52525b' }}>
               The topology
             </p>
             <h2 className="text-3xl! sm:text-4xl! font-bold! text-white tracking-tight">
               One box. Five services. Zero clutter.
             </h2>
-            <p className="mt-5 text-[#94a3b8] leading-relaxed max-w-md">
+            <p className="mt-5 leading-relaxed max-w-md" style={{ color: '#a1a1aa' }}>
               Everything hangs off a single Proxmox host behind a ZTE router,
               reachable anywhere through Tailscale. Each node is isolated,
               monitored, and documented.
@@ -47,24 +47,35 @@ export default function HomePage() {
         </SectionReveal>
 
         {/* Stats */}
-        <SectionReveal className="grid grid-cols-2 lg:grid-cols-4 gap-3 py-12 border-y border-[#1e293b]" staggerChildren>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <SectionReveal className="grid grid-cols-2 lg:grid-cols-4 gap-3 py-12" staggerChildren>
           {STATS.map((s) => (
-            <div key={s.label} className="rounded-xl border border-[#1e293b] bg-[#111726] p-5">
-              <p className="font-mono text-[10px] uppercase tracking-wider text-[#475569] mb-3">
+            <div
+              key={s.label}
+              className="rounded-xl p-5"
+              style={{
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+              }}
+            >
+              <p className="font-mono text-[10px] uppercase tracking-wider mb-3" style={{ color: '#52525b' }}>
                 {s.label}
               </p>
-              <p className="text-3xl font-extrabold tracking-tight bg-gradient-to-br from-[#60a5fa] to-[#2563eb] bg-clip-text text-transparent">
+              <p className="text-3xl font-extrabold tracking-tight text-white">
                 <Counter value={s.value} decimals={s.decimals} suffix={s.suffix} />
               </p>
-              <p className="mt-1 text-xs text-[#475569]">{s.unit}</p>
+              <p className="mt-1 text-xs" style={{ color: '#a1a1aa' }}>{s.unit}</p>
             </div>
           ))}
         </SectionReveal>
+        </div>
 
         {/* Funnel cards */}
         <SectionReveal className="py-20" staggerChildren>
           <div className="mb-10 text-center">
-            <p className="font-mono text-[#60a5fa] text-xs uppercase tracking-widest mb-3">
+            <p className="font-mono text-xs uppercase tracking-widest mb-3" style={{ color: '#52525b' }}>
               Start here
             </p>
             <h2 className="text-3xl! sm:text-4xl! font-bold! text-white tracking-tight">
@@ -76,13 +87,13 @@ export default function HomePage() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-[#1e293b] py-10">
+      <footer className="py-10" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-sm text-[#475569]">
-            <span className="font-bold text-white">Jay<span className="text-[#60a5fa]">Sync</span> Lab</span>
+          <p className="text-sm font-mono" style={{ color: '#52525b' }}>
+            <span className="font-bold text-white">Jay<span style={{ color: '#52525b' }}>Sync</span> Lab</span>
             {' '}· {host.model} · Proxmox VE {host.proxmox_version}
           </p>
-          <p className="font-mono text-xs text-[#475569]">documented properly.</p>
+          <p className="font-mono text-xs" style={{ color: '#52525b' }}>documented properly.</p>
         </div>
       </footer>
     </>

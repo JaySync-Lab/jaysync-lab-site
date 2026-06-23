@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import { stagger, fadeUp } from '@/lib/motion';
+import { LoadingLink } from '@/components/LoadingLink';
 
 export function DocsHero() {
   return (
@@ -68,13 +69,13 @@ export function DocsHero() {
           variants={fadeUp}
           className="flex flex-wrap items-center justify-center gap-3 mt-2"
         >
-          <Link
+          <LoadingLink
             href="/docs/infrastructure/hardware"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85"
             style={{ background: '#ffffff', color: '#000000' }}
           >
             Read the docs →
-          </Link>
+          </LoadingLink>
           <Link
             href="/"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm transition-colors hover:text-white"

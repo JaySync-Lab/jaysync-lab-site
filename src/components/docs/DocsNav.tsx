@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { LoadingLink } from '@/components/LoadingLink';
 
 export function DocsNav() {
   return (
@@ -20,7 +21,7 @@ export function DocsNav() {
       >
         ← JaySync-Lab
       </Link>
-      <Link
+      <LoadingLink
         href="/docs/infrastructure/hardware"
         className="font-mono text-sm px-4 py-1.5 rounded-lg transition-colors hover:opacity-80"
         style={{
@@ -30,7 +31,7 @@ export function DocsNav() {
         }}
       >
         Read the docs →
-      </Link>
+      </LoadingLink>
     </nav>
   );
 }
