@@ -1,6 +1,6 @@
 import { getInventory } from '@/lib/inventory';
 import { Hero } from '@/components/site/Hero';
-import { NodeConstellation } from '@/components/site/NodeConstellation';
+import { NetworkTopology } from '@/components/site/NetworkTopology';
 import { SectionReveal } from '@/components/site/SectionReveal';
 import { SectionPreviewCards } from '@/components/site/SectionPreviewCards';
 import { Counter } from '@/components/site/Counter';
@@ -42,7 +42,7 @@ export default function HomePage() {
             </p>
           </div>
           <div className="w-full max-w-md mx-auto">
-            <NodeConstellation nodes={nodes} className="w-full h-auto" />
+            <NetworkTopology nodes={nodes} className="w-full h-auto" />
           </div>
         </SectionReveal>
 
