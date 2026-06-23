@@ -36,3 +36,6 @@ next-env.d.ts
 
 # fumadocs generated
 .source/
+
+# graphify
+graphify-out/
