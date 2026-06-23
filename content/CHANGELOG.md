@@ -1,3 +1,8 @@
+---
+title: Changelog
+description: Infrastructure changes, new containers, and configuration updates.
+---
+
 # Changelog
 
 All notable changes to the JaySync-Lab configuration and documentation are recorded here. Dates reflect when changes were committed to the repository.

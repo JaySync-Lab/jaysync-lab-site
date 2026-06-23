@@ -1,3 +1,8 @@
+---
+title: Overview
+description: JaySync-Lab homelab — architecture overview and tech stack.
+---
+
 # JaySync-Lab
 
 > [!NOTE]

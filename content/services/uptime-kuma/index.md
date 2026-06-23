@@ -1,3 +1,8 @@
+---
+title: Uptime Kuma
+description: Infrastructure observability and automated alerting — the Watchman, running as LXC CT 101.
+---
+
 # ⏱️ Uptime Kuma: Infrastructure Observability
 
 > [!NOTE]  

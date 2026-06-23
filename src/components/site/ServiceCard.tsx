@@ -19,7 +19,7 @@ const ACCENT: Record<string, string> = {
 };
 
 function docPath(node: ServiceNode): string {
-  return `/docs/${node.docs.replace(/\/README\.md$/, '').replace(/\.md$/, '')}`;
+  return `/docs/${node.docs.replace(/\/(README|index)\.md$/, '').replace(/\.md$/, '')}`;
 }
 
 export function ServiceCard({ node }: Props) {

@@ -1,3 +1,8 @@
+---
+title: Tailscale
+description: Bare-metal Tailscale setup for remote access and the MagicDNS conflict fix.
+---
+
 # 🌐 Tailscale: Host Networking & Remote Access
 
 ## Architectural Placement
