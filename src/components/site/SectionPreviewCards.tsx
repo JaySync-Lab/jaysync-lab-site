@@ -16,7 +16,7 @@ interface Card {
 
 const CARDS: Card[] = [
   {
-    href: '/docs',
+    href: '/docs/infrastructure/hardware',
     label: 'Documentation',
     title: 'The full handbook',
     desc: 'Hardware, networking, every service — the complete written record of the lab.',

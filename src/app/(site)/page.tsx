@@ -1,8 +1,9 @@
 import { getInventory } from '@/lib/inventory';
-import { Hero } from '@/components/site/Hero';
+import { DocsHero } from '@/components/docs/DocsHero';
 import { NetworkTopology } from '@/components/site/NetworkTopology';
 import { SectionReveal } from '@/components/site/SectionReveal';
 import { SectionPreviewCards } from '@/components/site/SectionPreviewCards';
+import { DocsServiceStrip } from '@/components/docs/DocsServiceStrip';
 import { Counter } from '@/components/site/Counter';
 
 export const metadata = {
@@ -15,18 +16,18 @@ export default function HomePage() {
   const storageTb = +(host.storage.ssd_gb / 1024 + host.storage.vault_tb).toFixed(1);
 
   const STATS = [
-    { label: 'Containers', value: nodes.length, decimals: 0, suffix: '', unit: 'LXC + VM on Proxmox' },
-    { label: 'RAM installed', value: host.ram_gb, decimals: 0, suffix: ' GB', unit: `DDR4 · ${host.cpu}` },
-    { label: 'Storage', value: storageTb, decimals: 1, suffix: ' TB', unit: `${host.storage.ssd_gb}GB SSD + ${host.storage.vault_tb}TB vault` },
-    { label: 'Uptime target', value: host.uptime_target_pct, decimals: 1, suffix: '%', unit: 'Watchman monitored' },
+    { label: 'Containers',    value: nodes.length,            decimals: 0, suffix: '',    unit: 'LXC + VM on Proxmox' },
+    { label: 'RAM installed', value: host.ram_gb,             decimals: 0, suffix: ' GB', unit: `DDR4 · ${host.cpu}` },
+    { label: 'Storage',       value: storageTb,               decimals: 1, suffix: ' TB', unit: `${host.storage.ssd_gb}GB SSD + ${host.storage.vault_tb}TB vault` },
+    { label: 'Uptime target', value: host.uptime_target_pct,  decimals: 1, suffix: '%',   unit: 'Watchman monitored' },
   ];
 
   return (
     <>
-      <Hero containerCount={nodes.length} host={host} />
+      <DocsHero />
 
       <div className="max-w-6xl mx-auto px-6 pb-28">
-        {/* Constellation + intro */}
+        {/* Topology + intro */}
         <SectionReveal className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20" staggerChildren>
           <div>
             <p className="font-mono text-xs uppercase tracking-widest mb-4" style={{ color: '#52525b' }}>
@@ -48,28 +49,28 @@ export default function HomePage() {
 
         {/* Stats */}
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        <SectionReveal className="grid grid-cols-2 lg:grid-cols-4 gap-3 py-12" staggerChildren>
-          {STATS.map((s) => (
-            <div
-              key={s.label}
-              className="rounded-xl p-5"
-              style={{
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-              }}
-            >
-              <p className="font-mono text-[10px] uppercase tracking-wider mb-3" style={{ color: '#52525b' }}>
-                {s.label}
-              </p>
-              <p className="text-3xl font-extrabold tracking-tight text-white">
-                <Counter value={s.value} decimals={s.decimals} suffix={s.suffix} />
-              </p>
-              <p className="mt-1 text-xs" style={{ color: '#a1a1aa' }}>{s.unit}</p>
-            </div>
-          ))}
-        </SectionReveal>
+          <SectionReveal className="grid grid-cols-2 lg:grid-cols-4 gap-3 py-12" staggerChildren>
+            {STATS.map((s) => (
+              <div
+                key={s.label}
+                className="rounded-xl p-5"
+                style={{
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                }}
+              >
+                <p className="font-mono text-[10px] uppercase tracking-wider mb-3" style={{ color: '#52525b' }}>
+                  {s.label}
+                </p>
+                <p className="text-3xl font-extrabold tracking-tight text-white">
+                  <Counter value={s.value} decimals={s.decimals} suffix={s.suffix} />
+                </p>
+                <p className="mt-1 text-xs" style={{ color: '#a1a1aa' }}>{s.unit}</p>
+              </div>
+            ))}
+          </SectionReveal>
         </div>
 
         {/* Funnel cards */}
@@ -85,6 +86,9 @@ export default function HomePage() {
           <SectionPreviewCards />
         </SectionReveal>
       </div>
+
+      {/* Live services strip — full bleed */}
+      <DocsServiceStrip nodes={nodes} />
 
       {/* Footer */}
       <footer className="py-10" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
