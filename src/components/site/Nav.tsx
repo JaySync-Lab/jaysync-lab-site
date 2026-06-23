@@ -58,7 +58,7 @@ export function Nav() {
         <Link
           href="/"
           onClick={closeMobile}
-          className="shrink-0 text-[15px] font-bold tracking-tight text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded"
+          className="shrink-0 text-xl font-bold tracking-tight text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded"
         >
           Jay<span style={{ color: '#52525b' }}>Sync</span> Lab
         </Link>
