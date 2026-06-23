@@ -5,6 +5,7 @@ import { SectionReveal } from '@/components/site/SectionReveal';
 import { SectionPreviewCards } from '@/components/site/SectionPreviewCards';
 import { DocsServiceStrip } from '@/components/docs/DocsServiceStrip';
 import { StatsGrid } from '@/components/site/StatsGrid';
+import { SiteFooter } from '@/components/site/SiteFooter';
 
 export const metadata = {
   title: 'JaySync-Lab — A homelab, documented properly',
@@ -71,16 +72,7 @@ export default function HomePage() {
       {/* Live services strip — full bleed */}
       <DocsServiceStrip nodes={nodes} />
 
-      {/* Footer */}
-      <footer className="py-10" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-        <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-sm font-mono" style={{ color: '#52525b' }}>
-            <span className="font-bold text-white">Jay<span style={{ color: '#52525b' }}>Sync</span> Lab</span>
-            {' '}· {host.model} · Proxmox VE {host.proxmox_version}
-          </p>
-          <p className="font-mono text-xs" style={{ color: '#52525b' }}>documented properly.</p>
-        </div>
-      </footer>
+      <SiteFooter host={host} nodes={nodes} />
     </>
   );
 }
