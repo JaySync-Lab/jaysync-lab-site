@@ -42,7 +42,21 @@ export interface VmidBand {
   isolation: string;
 }
 
+export interface HostSpec {
+  model: string;
+  cpu: string;
+  ram_gb: number;
+  storage: {
+    ssd_gb: number;
+    vault_tb: number;
+  };
+  proxmox_version: string;
+  uptime_target_pct: number;
+  services_summary: string;
+}
+
 export interface Inventory {
+  host: HostSpec;
   hardware: HardwareNode[];
   nodes: ServiceNode[];
   overlay: OverlayNode[];

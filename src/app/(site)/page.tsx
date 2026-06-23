@@ -9,19 +9,21 @@ export const metadata = {
   title: 'JaySync-Lab — A homelab, documented properly',
 };
 
-const STATS = [
-  { label: 'Containers', value: 5, decimals: 0, suffix: '', unit: 'LXC + VM on Proxmox' },
-  { label: 'RAM installed', value: 16, decimals: 0, suffix: ' GB', unit: 'DDR4 · Intel i5-6500' },
-  { label: 'Storage', value: 1.5, decimals: 1, suffix: ' TB', unit: '512GB SSD + 1TB vault' },
-  { label: 'Uptime target', value: 99.9, decimals: 1, suffix: '%', unit: 'Watchman monitored' },
-];
-
 export default function HomePage() {
-  const { nodes } = getInventory();
+  const { nodes, host } = getInventory();
+
+  const storageTb = +(host.storage.ssd_gb / 1024 + host.storage.vault_tb).toFixed(1);
+
+  const STATS = [
+    { label: 'Containers', value: nodes.length, decimals: 0, suffix: '', unit: 'LXC + VM on Proxmox' },
+    { label: 'RAM installed', value: host.ram_gb, decimals: 0, suffix: ' GB', unit: `DDR4 · ${host.cpu}` },
+    { label: 'Storage', value: storageTb, decimals: 1, suffix: ' TB', unit: `${host.storage.ssd_gb}GB SSD + ${host.storage.vault_tb}TB vault` },
+    { label: 'Uptime target', value: host.uptime_target_pct, decimals: 1, suffix: '%', unit: 'Watchman monitored' },
+  ];
 
   return (
     <>
-      <Hero containerCount={nodes.length} />
+      <Hero containerCount={nodes.length} host={host} />
 
       <div className="max-w-6xl mx-auto px-6 pb-28">
         {/* Constellation + intro */}
@@ -78,7 +80,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-sm text-[#475569]">
             <span className="font-bold text-white">Jay<span className="text-[#60a5fa]">Sync</span> Lab</span>
-            {' '}· HP ProDesk 400 G3 · Proxmox VE
+            {' '}· {host.model} · Proxmox VE {host.proxmox_version}
           </p>
           <p className="font-mono text-xs text-[#475569]">documented properly.</p>
         </div>

@@ -1,3 +1,14 @@
+host:
+  model: "HP ProDesk 400 G3"
+  cpu: "Intel i5-6500"
+  ram_gb: 16
+  storage:
+    ssd_gb: 512
+    vault_tb: 1
+  proxmox_version: "9.2"
+  uptime_target_pct: 99.9
+  services_summary: "Pi-hole, Home Assistant, GPU-passthrough media streaming"
+
 hardware:
   - id: zte-router
     name: "ZTE Router"

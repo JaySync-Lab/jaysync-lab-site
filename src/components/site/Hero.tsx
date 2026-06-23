@@ -4,15 +4,17 @@ import Link from 'next/link';
 import { motion } from 'motion/react';
 import { AbstractBackdrop } from './AbstractBackdrop';
 import { wordReveal, stagger, fadeUp } from '@/lib/motion';
+import type { HostSpec } from '@/lib/inventory';
 
 interface Props {
   containerCount: number;
+  host: HostSpec;
 }
 
 const LINE_1 = ['A', 'homelab,'];
 const LINE_2 = ['documented', 'properly.'];
 
-export function Hero({ containerCount }: Props) {
+export function Hero({ containerCount, host }: Props) {
   return (
     <section className="relative min-h-[88vh] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
       <AbstractBackdrop rings />
@@ -32,7 +34,7 @@ export function Hero({ containerCount }: Props) {
             <span className="absolute inline-flex h-full w-full rounded-full bg-[#22c55e] opacity-60 motion-safe:animate-ping" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-[#22c55e]" />
           </span>
-          <span className="text-xs text-[#93c5fd]">All systems operational · Proxmox VE 9.2</span>
+          <span className="text-xs text-[#93c5fd]">All systems operational · Proxmox VE {host.proxmox_version}</span>
         </motion.div>
 
         {/* headline */}
@@ -58,8 +60,8 @@ export function Hero({ containerCount }: Props) {
           variants={fadeUp}
           className="mt-6 max-w-xl text-base sm:text-lg text-[#94a3b8] leading-relaxed"
         >
-          An HP ProDesk 400 G3 running Pi-hole, Home Assistant, GPU-passthrough
-          media streaming and {containerCount} containers in total — every box,
+          A {host.model} running {host.services_summary}
+          {' '}and {containerCount} containers in total — every box,
           network and decision written down.
         </motion.p>
 
