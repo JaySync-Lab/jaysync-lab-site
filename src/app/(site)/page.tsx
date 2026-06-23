@@ -41,7 +41,7 @@ export default function HomePage() {
               monitored, and documented.
             </p>
           </div>
-          <div className="w-full max-w-md mx-auto">
+          <div className="w-full">
             <NetworkTopology nodes={nodes} className="w-full h-auto" />
           </div>
         </SectionReveal>
