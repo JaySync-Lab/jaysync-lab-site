@@ -1,6 +1,6 @@
 import { getInventory } from '@/lib/inventory';
 import { VmidBandDiagram } from '@/components/VmidBandDiagram';
-import { NodeConstellation } from '@/components/site/NodeConstellation';
+import { NetworkTopology } from '@/components/site/NetworkTopology';
 import { PageHeader } from '@/components/site/PageHeader';
 import { SectionReveal } from '@/components/site/SectionReveal';
 
@@ -13,9 +13,9 @@ export default function ArchitecturePage() {
   const tailscale = overlay[0];
 
   const physicalNodes = [
-    { label: router?.name    ?? 'Router',    ip: router?.ip,    role: router?.role,    accent: '#64748b' },
-    { label: proxmox?.name   ?? 'Proxmox',   ip: proxmox?.ip,   role: proxmox?.role,   accent: '#3b82f6' },
-    { label: tailscale?.name ?? 'Tailscale', ip: tailscale?.ip, role: tailscale?.role, accent: '#a855f7' },
+    { label: router?.name    ?? 'Router',    ip: router?.ip,    role: router?.role    },
+    { label: proxmox?.name   ?? 'Proxmox',   ip: proxmox?.ip,   role: proxmox?.role   },
+    { label: tailscale?.name ?? 'Tailscale', ip: tailscale?.ip, role: tailscale?.role },
   ];
 
   return (
@@ -29,32 +29,45 @@ export default function ArchitecturePage() {
       {/* Topology */}
       <SectionReveal className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20" staggerChildren>
         <div>
-          <p className="font-mono text-[#475569] text-[10px] uppercase tracking-widest mb-4">Topology</p>
+          <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: '#52525b' }}>
+            Topology
+          </p>
           <div className="flex flex-wrap gap-3">
             {physicalNodes.map((node) => (
               <div
                 key={node.label}
-                className="rounded-xl border bg-[#111726] p-4 font-mono text-xs"
-                style={{ borderColor: `${node.accent}66` }}
+                className="rounded-xl p-4 font-mono text-xs"
+                style={{
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}
               >
                 <p className="font-semibold text-white text-sm mb-1">{node.label}</p>
-                <p style={{ color: node.accent }}>{node.ip}</p>
-                <p className="text-[#475569] mt-1 text-[11px] max-w-[200px] leading-relaxed">{node.role}</p>
+                <p className="font-mono text-xs" style={{ color: '#a1a1aa' }}>{node.ip}</p>
+                <p className="mt-1 text-[11px] max-w-[200px] leading-relaxed" style={{ color: '#52525b' }}>
+                  {node.role}
+                </p>
               </div>
             ))}
           </div>
         </div>
-        <div className="w-full max-w-md mx-auto">
-          <NodeConstellation nodes={nodes} className="w-full h-auto" />
+        <div className="w-full">
+          <NetworkTopology nodes={nodes} className="w-full h-auto" />
         </div>
       </SectionReveal>
 
       {/* VMID band diagram */}
       <SectionReveal>
-        <p className="font-mono text-[#475569] text-[10px] uppercase tracking-widest mb-5">
+        <p className="font-mono text-[10px] uppercase tracking-widest mb-5" style={{ color: '#52525b' }}>
           VMID band allocation — 100 to 199
         </p>
-        <div className="overflow-x-auto rounded-2xl border border-[#1e293b] bg-[#111726] p-6">
+        <div
+          className="overflow-x-auto rounded-2xl p-6"
+          style={{
+            background: 'rgba(255,255,255,0.02)',
+            border: '1px solid rgba(255,255,255,0.07)',
+          }}
+        >
           <VmidBandDiagram nodes={nodes} bands={vmid_bands} />
         </div>
       </SectionReveal>
