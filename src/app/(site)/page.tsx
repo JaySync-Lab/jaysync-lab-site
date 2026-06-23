@@ -4,7 +4,7 @@ import { NetworkTopology } from '@/components/site/NetworkTopology';
 import { SectionReveal } from '@/components/site/SectionReveal';
 import { SectionPreviewCards } from '@/components/site/SectionPreviewCards';
 import { DocsServiceStrip } from '@/components/docs/DocsServiceStrip';
-import { Counter } from '@/components/site/Counter';
+import { StatsGrid } from '@/components/site/StatsGrid';
 
 export const metadata = {
   title: 'JaySync-Lab — A homelab, documented properly',
@@ -12,15 +12,7 @@ export const metadata = {
 
 export default function HomePage() {
   const { nodes, host } = getInventory();
-
   const storageTb = +(host.storage.ssd_gb / 1024 + host.storage.vault_tb).toFixed(1);
-
-  const STATS = [
-    { label: 'Containers',    value: nodes.length,            decimals: 0, suffix: '',    unit: 'LXC + VM on Proxmox' },
-    { label: 'RAM installed', value: host.ram_gb,             decimals: 0, suffix: ' GB', unit: `DDR4 · ${host.cpu}` },
-    { label: 'Storage',       value: storageTb,               decimals: 1, suffix: ' TB', unit: `${host.storage.ssd_gb}GB SSD + ${host.storage.vault_tb}TB vault` },
-    { label: 'Uptime target', value: host.uptime_target_pct,  decimals: 1, suffix: '%',   unit: 'Watchman monitored' },
-  ];
 
   return (
     <>
@@ -47,29 +39,18 @@ export default function HomePage() {
           </div>
         </SectionReveal>
 
-        {/* Stats */}
+        {/* Stats grid */}
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-          <SectionReveal className="grid grid-cols-2 lg:grid-cols-4 gap-3 py-12" staggerChildren>
-            {STATS.map((s) => (
-              <div
-                key={s.label}
-                className="rounded-xl p-5"
-                style={{
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
-                }}
-              >
-                <p className="font-mono text-[10px] uppercase tracking-wider mb-3" style={{ color: '#52525b' }}>
-                  {s.label}
-                </p>
-                <p className="text-3xl font-extrabold tracking-tight text-white">
-                  <Counter value={s.value} decimals={s.decimals} suffix={s.suffix} />
-                </p>
-                <p className="mt-1 text-xs" style={{ color: '#a1a1aa' }}>{s.unit}</p>
-              </div>
-            ))}
+          <SectionReveal className="py-12">
+            <StatsGrid
+              containerCount={nodes.length}
+              ramGb={host.ram_gb}
+              storageTb={storageTb}
+              uptimePct={host.uptime_target_pct}
+              cpu={host.cpu}
+              ssdGb={host.storage.ssd_gb}
+              vaultTb={host.storage.vault_tb}
+            />
           </SectionReveal>
         </div>
 
