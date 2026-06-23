@@ -1,0 +1,227 @@
+{
+  "C:\\gitProject\\jaysync-lab-site\\.claude\\launch.json": {
+    "mtime": 1781857358.317979,
+    "ast_hash": "a17def8c20c32bf789bcd87121f47a08",
+    "semantic_hash": "a17def8c20c32bf789bcd87121f47a08"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\next.config.ts": {
+    "mtime": 1781851558.6243317,
+    "ast_hash": "c7fdad30e2328e526f35a6ff17a06035",
+    "semantic_hash": "c7fdad30e2328e526f35a6ff17a06035"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\package.json": {
+    "mtime": 1781860054.3488278,
+    "ast_hash": "2f42b78369bde3ef920f6755726d8057",
+    "semantic_hash": "2f42b78369bde3ef920f6755726d8057"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\postcss.config.mjs": {
+    "mtime": 1781852110.0876546,
+    "ast_hash": "e9d66e1263ec6f84f9c7f4b88b00e4f9",
+    "semantic_hash": "e9d66e1263ec6f84f9c7f4b88b00e4f9"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\source.config.ts": {
+    "mtime": 1781851561.7576723,
+    "ast_hash": "4576dae58725ad460cc83dfe28bde53c",
+    "semantic_hash": "4576dae58725ad460cc83dfe28bde53c"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\app\\(site)\\architecture\\page.tsx": {
+    "mtime": 1781860365.156543,
+    "ast_hash": "12f525546bcd7a0affa7b1e3cdbe4ad3",
+    "semantic_hash": "12f525546bcd7a0affa7b1e3cdbe4ad3"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\app\\(site)\\changelog\\page.tsx": {
+    "mtime": 1781860386.8755205,
+    "ast_hash": "6f5b46f6f98abb998590dcdb79af405d",
+    "semantic_hash": "6f5b46f6f98abb998590dcdb79af405d"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\app\\(site)\\layout.tsx": {
+    "mtime": 1781860169.1158688,
+    "ast_hash": "20e687ffa6794923a8003890c3be033e",
+    "semantic_hash": "20e687ffa6794923a8003890c3be033e"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\app\\(site)\\page.tsx": {
+    "mtime": 1781862357.1000037,
+    "ast_hash": "dcb5300fc28305071c1f35dffee82ed0",
+    "semantic_hash": "dcb5300fc28305071c1f35dffee82ed0"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\app\\(site)\\services\\page.tsx": {
+    "mtime": 1781860346.2486522,
+    "ast_hash": "303db6e1176a89d4736a76af29dc251a",
+    "semantic_hash": "303db6e1176a89d4736a76af29dc251a"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\app\\docs\\[[...slug]]\\page.tsx": {
+    "mtime": 1781851642.3167703,
+    "ast_hash": "b2b4f3afd15ad119e5a1f16fba55a65f",
+    "semantic_hash": "b2b4f3afd15ad119e5a1f16fba55a65f"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\app\\docs\\layout.tsx": {
+    "mtime": 1781860417.0930398,
+    "ast_hash": "e3197c1d1e7251dfd69e983b73cde1f4",
+    "semantic_hash": "e3197c1d1e7251dfd69e983b73cde1f4"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\app\\layout.tsx": {
+    "mtime": 1781860093.067262,
+    "ast_hash": "6b2013f06513f1f817a2a79a0e93df16",
+    "semantic_hash": "6b2013f06513f1f817a2a79a0e93df16"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\components\\StatusBadge.tsx": {
+    "mtime": 1781851761.2715652,
+    "ast_hash": "c4c7cb8ed49b827d58ca2b6c86e8ad3f",
+    "semantic_hash": "c4c7cb8ed49b827d58ca2b6c86e8ad3f"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\components\\VmidBandDiagram.tsx": {
+    "mtime": 1781851787.882336,
+    "ast_hash": "41ba175bfa08b1db3df8a7437ca2b280",
+    "semantic_hash": "41ba175bfa08b1db3df8a7437ca2b280"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\components\\site\\AbstractBackdrop.tsx": {
+    "mtime": 1781860109.9234233,
+    "ast_hash": "7587d4ced60a2b33af92e870c6d76ae7",
+    "semantic_hash": "7587d4ced60a2b33af92e870c6d76ae7"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\components\\site\\Counter.tsx": {
+    "mtime": 1781860124.0255766,
+    "ast_hash": "a8dacbeeb61f00f8a5a19e0204715a62",
+    "semantic_hash": "a8dacbeeb61f00f8a5a19e0204715a62"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\components\\site\\Hero.tsx": {
+    "mtime": 1781862304.1003954,
+    "ast_hash": "48dcc7602beccebbb957937419f52164",
+    "semantic_hash": "48dcc7602beccebbb957937419f52164"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\components\\site\\Nav.tsx": {
+    "mtime": 1781860136.0001714,
+    "ast_hash": "9129c73a97dc041f99cce1aab530b872",
+    "semantic_hash": "9129c73a97dc041f99cce1aab530b872"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\components\\site\\NodeConstellation.tsx": {
+    "mtime": 1781860159.326403,
+    "ast_hash": "847fdf24c0abae8f8abbba422d3251c9",
+    "semantic_hash": "847fdf24c0abae8f8abbba422d3251c9"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\components\\site\\PageHeader.tsx": {
+    "mtime": 1781862345.1311455,
+    "ast_hash": "4dd06f808f69bf0ddf10ff8bd19141eb",
+    "semantic_hash": "4dd06f808f69bf0ddf10ff8bd19141eb"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\components\\site\\SectionPreviewCards.tsx": {
+    "mtime": 1781862366.3167262,
+    "ast_hash": "ea51395789a89683f16bae5658803204",
+    "semantic_hash": "ea51395789a89683f16bae5658803204"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\components\\site\\SectionReveal.tsx": {
+    "mtime": 1781860115.8671887,
+    "ast_hash": "e55f9dbe403a19ac1fb22796eb7ab404",
+    "semantic_hash": "e55f9dbe403a19ac1fb22796eb7ab404"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\components\\site\\ServiceCard.tsx": {
+    "mtime": 1781862371.2428188,
+    "ast_hash": "ea361f8039dfa1d061a9e0e77bc1216b",
+    "semantic_hash": "ea361f8039dfa1d061a9e0e77bc1216b"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\components\\site\\Timeline.tsx": {
+    "mtime": 1781860378.8559718,
+    "ast_hash": "362cdd960e4f205ecae8daa6220e5357",
+    "semantic_hash": "362cdd960e4f205ecae8daa6220e5357"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\lib\\changelog.ts": {
+    "mtime": 1781861923.121183,
+    "ast_hash": "90d17ca055d35fbfb131808932b3a205",
+    "semantic_hash": "90d17ca055d35fbfb131808932b3a205"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\lib\\inventory.ts": {
+    "mtime": 1781852049.3872497,
+    "ast_hash": "ce19a256956807e1edbaa5789243575b",
+    "semantic_hash": "ce19a256956807e1edbaa5789243575b"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\lib\\motion.ts": {
+    "mtime": 1781860069.1720803,
+    "ast_hash": "f01859c737130bd71f1ed2763b0ee6b0",
+    "semantic_hash": "f01859c737130bd71f1ed2763b0ee6b0"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\lib\\source.ts": {
+    "mtime": 1781851925.909519,
+    "ast_hash": "2878a0b5b4fc8bae57c95832d2a1c8af",
+    "semantic_hash": "2878a0b5b4fc8bae57c95832d2a1c8af"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\tsconfig.json": {
+    "mtime": 1781850654.220584,
+    "ast_hash": "c5cfed3dff9b714faccef0795a776af2",
+    "semantic_hash": "c5cfed3dff9b714faccef0795a776af2"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\content\\CHANGELOG.md": {
+    "mtime": 1781847809.5143979,
+    "ast_hash": "dc9c74d9188c746283371c9e0d31f32d",
+    "semantic_hash": "dc9c74d9188c746283371c9e0d31f32d"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\content\\README.md": {
+    "mtime": 1781847809.5173895,
+    "ast_hash": "c15bac6ebd4bdefe39a40793bff2f91d",
+    "semantic_hash": "c15bac6ebd4bdefe39a40793bff2f91d"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\content\\infrastructure\\hardware.md": {
+    "mtime": 1781847809.518189,
+    "ast_hash": "bdab40987fe78035952c2efe89648636",
+    "semantic_hash": "bdab40987fe78035952c2efe89648636"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\content\\infrastructure\\proxmox-host.md": {
+    "mtime": 1781847809.5198216,
+    "ast_hash": "0c24f9258d22a23a45bebd537d547ab2",
+    "semantic_hash": "0c24f9258d22a23a45bebd537d547ab2"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\content\\networking\\tailscale-routing.md": {
+    "mtime": 1781769503.8179257,
+    "ast_hash": "29a9e61646cd8bc38721167182b459d5",
+    "semantic_hash": "29a9e61646cd8bc38721167182b459d5"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\content\\security\\README.md": {
+    "mtime": 1781769503.8324778,
+    "ast_hash": "0d4747f4ec6e9f21660e3805236edd1a",
+    "semantic_hash": "0d4747f4ec6e9f21660e3805236edd1a"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\content\\services\\home-assistant\\README.md": {
+    "mtime": 1781847809.521911,
+    "ast_hash": "850741307a643de75fbdd497d437cae8",
+    "semantic_hash": "850741307a643de75fbdd497d437cae8"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\content\\services\\media-stack\\README.md": {
+    "mtime": 1781847809.5234454,
+    "ast_hash": "5e747b18c1d8fb7c7f8179ec5dd988ae",
+    "semantic_hash": "5e747b18c1d8fb7c7f8179ec5dd988ae"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\content\\services\\pi-hole\\README.md": {
+    "mtime": 1781847809.5250318,
+    "ast_hash": "957437e227828d8787c63deac61e3695",
+    "semantic_hash": "957437e227828d8787c63deac61e3695"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\content\\services\\production-documentation-engine\\README.md": {
+    "mtime": 1781847809.5274725,
+    "ast_hash": "3b17ca4128adb805be830cd267df09fa",
+    "semantic_hash": "3b17ca4128adb805be830cd267df09fa"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\content\\services\\uptime-kuma\\README.md": {
+    "mtime": 1781847809.5292847,
+    "ast_hash": "d1a6c2eb844d09f3935fa873696263c9",
+    "semantic_hash": "d1a6c2eb844d09f3935fa873696263c9"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\content\\templates\\uptime-kuma-alert.html": {
+    "mtime": 1781769503.8340702,
+    "ast_hash": "eb9acc8f5db7a481a7abfb1d32718587",
+    "semantic_hash": "eb9acc8f5db7a481a7abfb1d32718587"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\docs\\superpowers\\specs\\2026-06-19-cinematic-redesign-design.md": {
+    "mtime": 1781859897.2236552,
+    "ast_hash": "491597f38658fad569d44acfe0064432",
+    "semantic_hash": "491597f38658fad569d44acfe0064432"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\src\\data\\inventory.yaml": {
+    "mtime": 1781849846.4998665,
+    "ast_hash": "d28ede0839fc415c1be57c2a44e78ac2",
+    "semantic_hash": "d28ede0839fc415c1be57c2a44e78ac2"
+  },
+  "C:\\gitProject\\jaysync-lab-site\\.claude\\settings.local.json": {
+    "mtime": 1782118657.7912173,
+    "ast_hash": "6e211c58b02f2b5753555944fb71de8d",
+    "semantic_hash": "6e211c58b02f2b5753555944fb71de8d"
+  }
+}

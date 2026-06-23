@@ -1,3 +1,8 @@
+---
+title: Hardware
+description: System architecture and hardware configuration for the HP ProDesk 400 G3 homelab host.
+---
+
 # 🖥️ System Architecture & Hardware Configuration
 
 > [!IMPORTANT]  

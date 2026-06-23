@@ -11,7 +11,8 @@ interface Props {
 export function Timeline({ entries }: Props) {
   return (
     <motion.ol
-      className="relative border-l-2 border-[#1e293b] ml-3"
+      className="relative ml-3"
+      style={{ borderLeft: '1px solid rgba(255,255,255,0.07)' }}
       variants={stagger}
       initial="hidden"
       whileInView="show"
@@ -19,25 +20,25 @@ export function Timeline({ entries }: Props) {
     >
       {entries.map((entry, i) => (
         <motion.li key={entry.label} variants={fadeUp} className="mb-12 ml-8 last:mb-0">
-          {/* Dot — latest entry glows blue */}
+          {/* dot — latest entry is white, older are dark */}
           <span
-            className="absolute -left-[7px] flex h-3 w-3 items-center justify-center rounded-full"
+            className="absolute -left-[5px] flex h-2.5 w-2.5 items-center justify-center rounded-full"
             style={{
-              backgroundColor: i === 0 ? '#2563eb' : '#0a0f1f',
-              border: `2px solid ${i === 0 ? '#60a5fa' : '#334155'}`,
-              boxShadow: i === 0 ? '0 0 12px rgba(37,99,235,0.7)' : 'none',
+              backgroundColor: i === 0 ? '#ffffff' : '#080808',
+              border: `1.5px solid ${i === 0 ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.15)'}`,
+              boxShadow: i === 0 ? '0 0 8px rgba(255,255,255,0.25)' : 'none',
               top: '4px',
             }}
           />
 
-          <time className="mb-3 block font-mono text-[10px] uppercase tracking-wider text-[#475569]">
+          <time className="mb-3 block font-mono text-[10px] uppercase tracking-wider" style={{ color: '#52525b' }}>
             {entry.label}
           </time>
 
           <ul className="space-y-2">
             {entry.entries.map((item, j) => (
-              <li key={j} className="flex items-start gap-2 text-sm leading-relaxed text-[#cbd5e1]">
-                <span className="mt-0.5 shrink-0 text-xs text-[#60a5fa]">▸</span>
+              <li key={j} className="flex items-start gap-2 text-sm leading-relaxed" style={{ color: '#a1a1aa' }}>
+                <span className="mt-0.5 shrink-0 text-xs" style={{ color: '#3f3f46' }}>▸</span>
                 <span>{item}</span>
               </li>
             ))}
