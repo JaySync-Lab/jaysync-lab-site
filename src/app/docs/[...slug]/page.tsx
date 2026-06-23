@@ -4,7 +4,7 @@ import { source } from '@/lib/source';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 
 interface Props {
-  params: Promise<{ slug?: string[] }>;
+  params: Promise<{ slug: string[] }>;
 }
 
 export default async function Page({ params }: Props) {
@@ -26,7 +26,9 @@ export default async function Page({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-  return source.generateParams();
+  return source.generateParams().filter(
+    (p: { slug?: string[] }) => p.slug && p.slug.length > 0,
+  );
 }
 
 export async function generateMetadata({ params }: Props) {

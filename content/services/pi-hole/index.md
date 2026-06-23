@@ -1,3 +1,8 @@
+---
+title: Pi-hole
+description: Local DNS resolver and network-wide ad blocker running as LXC CT 100.
+---
+
 # 🕳️ Pi-hole: Local DNS & Network Protection
 
 > [!NOTE]  

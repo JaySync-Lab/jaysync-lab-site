@@ -5,15 +5,12 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, "Courier New", monospace;
 
-  /* ── Site zone (blue) ── */
-  --color-site-bg:         #0a0f1f;
-  --color-site-surface:    #111726;
-  --color-site-border:     #1e293b;
-  --color-site-blue:       #2563eb;
-  --color-site-blue-light: #60a5fa;
-  --color-site-blue-deep:  #1d4ed8;
-  --color-site-text:       #f1f5f9;
-  --color-site-muted:      #94a3b8;
+  /* ── Site zone (black / grey / white) ── */
+  --color-site-bg:         #080808;
+  --color-site-surface:    rgba(255,255,255,0.04);
+  --color-site-border:     rgba(255,255,255,0.08);
+  --color-site-text:       #ffffff;
+  --color-site-muted:      #71717a;
 
   /* semantic (used sparingly) */
   --color-site-up:    #22c55e;

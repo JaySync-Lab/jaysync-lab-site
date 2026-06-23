@@ -1,3 +1,8 @@
+---
+title: Docs Engine
+description: Production documentation platform running as LXC CT 105.
+---
+
 # 📝 Production Documentation Engine
 
 > [!NOTE]  

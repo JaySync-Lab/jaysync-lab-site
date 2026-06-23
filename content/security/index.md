@@ -1,3 +1,8 @@
+---
+title: Secret Management
+description: SOPS + Age encryption for GitOps-style secret management without committing plaintext credentials.
+---
+
 # 🔐 Secret Management (SOPS + Age)
 
 > [!IMPORTANT]  

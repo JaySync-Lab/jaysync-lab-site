@@ -1,3 +1,8 @@
+---
+title: Media Stack
+description: Docker-based streaming services with Intel GPU passthrough, running as LXC CT 104.
+---
+
 # 🎬 Media Stack: Streaming & Media Services
 
 > [!NOTE]  

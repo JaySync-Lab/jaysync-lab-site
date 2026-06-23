@@ -1,3 +1,8 @@
+---
+title: Home Assistant
+description: Smart home OS (HAOS) running as VM 103 with EZVIZ RTSP camera integration.
+---
+
 # Home Assistant
 
 Central command for the smart home environment.

@@ -37,5 +37,7 @@ next-env.d.ts
 # fumadocs generated
 .source/
 
-# graphify
-graphify-out/
+
+# graphify - ignore machine-specific cache and generated visuals
+graphify-out/cache/
+graphify-out/*.html

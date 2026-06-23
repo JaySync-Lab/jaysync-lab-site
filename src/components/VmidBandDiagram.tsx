@@ -5,12 +5,13 @@ interface Props {
   bands: VmidBand[];
 }
 
+// Black/grey/white — each band has a distinct lightness tier so they're still distinguishable
 const BAND_COLORS: Record<string, { bg: string; border: string; text: string }> = {
-  'core-network':            { bg: '#0c1a3d', border: '#3b82f6', text: '#93c5fd' },
-  'automation-utilities':    { bg: '#1a0f2e', border: '#a855f7', text: '#d8b4fe' },
-  'specialized-controllers': { bg: '#2c1500', border: '#f59e0b', text: '#fcd34d' },
-  'media-streaming':         { bg: '#031a0f', border: '#22c55e', text: '#86efac' },
-  'sandboxes-testing':       { bg: '#0f172a', border: '#475569', text: '#94a3b8' },
+  'core-network':            { bg: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.40)', text: '#ffffff'  },
+  'automation-utilities':    { bg: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.25)', text: '#d4d4d8'  },
+  'specialized-controllers': { bg: 'rgba(255,255,255,0.02)', border: 'rgba(255,255,255,0.18)', text: '#a1a1aa'  },
+  'media-streaming':         { bg: 'rgba(255,255,255,0.015)',border: 'rgba(255,255,255,0.12)', text: '#71717a'  },
+  'sandboxes-testing':       { bg: 'rgba(255,255,255,0.01)', border: 'rgba(255,255,255,0.07)', text: '#52525b'  },
 };
 
 function parseRange(r: string): [number, number] {
@@ -24,7 +25,7 @@ export function VmidBandDiagram({ nodes, bands }: Props) {
   return (
     <div className="flex gap-6 font-mono text-xs min-w-[480px]">
       {/* VMID axis */}
-      <div className="flex flex-col shrink-0 text-[#475569] text-[10px] text-right">
+      <div className="flex flex-col shrink-0 text-[10px] text-right" style={{ color: '#3f3f46' }}>
         {bands.map((band) => {
           const [s, e] = parseRange(band.range);
           return (
@@ -33,7 +34,7 @@ export function VmidBandDiagram({ nodes, bands }: Props) {
             </div>
           );
         })}
-        <div className="text-[10px] text-[#475569] pr-1">199</div>
+        <div className="text-[10px] pr-1" style={{ color: '#3f3f46' }}>199</div>
       </div>
 
       {/* Band blocks with service slots */}
@@ -80,18 +81,21 @@ export function VmidBandDiagram({ nodes, bands }: Props) {
           return (
             <div
               key={band.id}
-              className="flex flex-col justify-center gap-0.5 pl-3 border-b border-[#1e293b]/50 last:border-0 py-1"
-              style={{ minHeight: Math.max(height, 72) }}
+              className="flex flex-col justify-center gap-0.5 pl-3 py-1 last:border-0"
+              style={{
+                minHeight: Math.max(height, 72),
+                borderBottom: '1px solid rgba(255,255,255,0.05)',
+              }}
             >
               <p className="font-semibold text-xs" style={{ color: c.text }}>{band.label}</p>
-              <p className="text-[10px]" style={{ color: c.border }}>
+              <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.30)' }}>
                 VMIDs {band.range} · {band.isolation}
               </p>
-              <p className="text-[10px] text-[#475569]">{band.purpose}</p>
+              <p className="text-[10px]" style={{ color: '#3f3f46' }}>{band.purpose}</p>
               {bandNodes.map((node) => (
-                <p key={node.vmid} className="text-[10px]" style={{ color: c.border }}>
+                <p key={node.vmid} className="text-[10px]" style={{ color: 'rgba(255,255,255,0.30)' }}>
                   ▸ CT {node.vmid} — {node.name}{' '}
-                  <span className="text-[#475569]">({node.ip})</span>
+                  <span style={{ color: '#3f3f46' }}>({node.ip})</span>
                 </p>
               ))}
             </div>

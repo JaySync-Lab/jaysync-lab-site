@@ -1,7 +1,12 @@
+---
+title: Proxmox Host
+description: Node configuration — network bridge, storage pools, post-install tweaks, and update channels.
+---
+
 # 🏗️ Proxmox Host: Node Configuration
 
 > [!NOTE]
-> This document covers the Proxmox VE node-level configuration: network bridge, storage pool definitions, post-install tweaks, and update channels. For physical hardware specs, see [`hardware.md`](hardware.md).
+> This document covers the Proxmox VE node-level configuration: network bridge, storage pool definitions, post-install tweaks, and update channels. For physical hardware specs, see [`hardware.md`](/docs/infrastructure/hardware).
 
 ## Node Identity
 
@@ -76,7 +81,7 @@ deb http://download.proxmox.com/debian/pve trixie pve-no-subscription
 
 Tailscale is installed directly on the Proxmox host — **not** inside an LXC — so the management interface (`8006`) remains reachable remotely even if internal containers fail.
 
-See [`/networking/tailscale-routing.md`](../networking/tailscale-routing.md) for the MagicDNS conflict fix and full rationale.
+See [`tailscale-routing.md`](/docs/networking/tailscale-routing) for the MagicDNS conflict fix and full rationale.
 
 ### 3. Intel iGPU Passthrough (for Media Stack)
 
