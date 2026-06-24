@@ -9,7 +9,7 @@ export default function ServicesPage() {
   const nodes = getNodes();
 
   return (
-    <div className="max-w-6xl mx-auto px-6 pt-28 pb-24">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-20 md:pt-24 pb-16 md:pb-20">
       <PageHeader
         eyebrow={`${nodes.length} active containers`}
         title="Services"

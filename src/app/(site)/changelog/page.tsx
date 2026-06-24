@@ -9,7 +9,7 @@ export default function ChangelogPage() {
   const latestDate = entries.find((e) => e.date !== null)?.date;
 
   return (
-    <div className="max-w-3xl mx-auto px-6 pt-28 pb-24">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-20 md:pt-24 pb-16 md:pb-20">
       <PageHeader
         eyebrow={`Last updated ${latestDate ?? 'recently'}`}
         title="Changelog"

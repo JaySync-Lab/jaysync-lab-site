@@ -19,7 +19,7 @@ export default function ArchitecturePage() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-6 pt-28 pb-24">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-20 md:pt-24 pb-16 md:pb-20">
       <PageHeader
         eyebrow="Infrastructure"
         title="Architecture"
@@ -27,7 +27,7 @@ export default function ArchitecturePage() {
       />
 
       {/* Topology */}
-      <SectionReveal className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20" staggerChildren>
+      <SectionReveal className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start mb-12 md:mb-16" staggerChildren>
         <div>
           <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: '#52525b' }}>
             Topology
@@ -51,7 +51,7 @@ export default function ArchitecturePage() {
             ))}
           </div>
         </div>
-        <div className="w-full">
+        <div className="w-full max-w-[420px] mx-auto md:max-w-none">
           <NetworkTopology nodes={nodes} className="w-full h-auto" />
         </div>
       </SectionReveal>

@@ -9,7 +9,7 @@ const GITHUB_URL = 'https://github.com/Anuja-jayasinghe/JaySync-Lab';
 export function DocsHero() {
   return (
     <section
-      className="relative min-h-[88vh] flex flex-col items-center justify-center text-center px-6 overflow-hidden"
+      className="relative min-h-[60vh] md:min-h-[72vh] flex flex-col items-center justify-center text-center px-6 overflow-hidden"
       style={{ background: '#080808' }}
     >
       {/* noise texture */}
