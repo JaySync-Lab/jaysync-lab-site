@@ -4,7 +4,7 @@ import { NetworkTopology } from '@/components/site/NetworkTopology';
 import { SectionReveal } from '@/components/site/SectionReveal';
 import { SectionPreviewCards } from '@/components/site/SectionPreviewCards';
 import { DocsServiceStrip } from '@/components/docs/DocsServiceStrip';
-import { StatsGrid } from '@/components/site/StatsGrid';
+import { SystemFetch } from '@/components/site/SystemFetch';
 import { SiteFooter } from '@/components/site/SiteFooter';
 
 export const metadata = {
@@ -13,7 +13,6 @@ export const metadata = {
 
 export default function HomePage() {
   const { nodes, host } = getInventory();
-  const storageTb = +(host.storage.ssd_gb / 1024 + host.storage.vault_tb).toFixed(1);
 
   return (
     <>
@@ -40,18 +39,10 @@ export default function HomePage() {
           </div>
         </SectionReveal>
 
-        {/* Stats grid */}
+        {/* System fetch */}
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
           <SectionReveal className="py-8 md:py-10">
-            <StatsGrid
-              containerCount={nodes.length}
-              ramGb={host.ram_gb}
-              storageTb={storageTb}
-              uptimePct={host.uptime_target_pct}
-              cpu={host.cpu}
-              ssdGb={host.storage.ssd_gb}
-              vaultTb={host.storage.vault_tb}
-            />
+            <SystemFetch host={host} nodes={nodes} />
           </SectionReveal>
         </div>
 
