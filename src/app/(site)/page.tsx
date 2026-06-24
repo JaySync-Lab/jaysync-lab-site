@@ -2,7 +2,7 @@ import { getInventory } from '@/lib/inventory';
 import { DocsHero } from '@/components/docs/DocsHero';
 import { NetworkTopology } from '@/components/site/NetworkTopology';
 import { SectionReveal } from '@/components/site/SectionReveal';
-import { SectionPreviewCards } from '@/components/site/SectionPreviewCards';
+import { NetworkNav } from '@/components/site/NetworkNav';
 import { DocsServiceStrip } from '@/components/docs/DocsServiceStrip';
 import { SystemFetch } from '@/components/site/SystemFetch';
 import { SiteFooter } from '@/components/site/SiteFooter';
@@ -46,17 +46,19 @@ export default function HomePage() {
           </SectionReveal>
         </div>
 
-        {/* Funnel cards */}
-        <SectionReveal className="py-10 md:py-14" staggerChildren>
-          <div className="mb-8 text-center">
-            <p className="font-mono text-xs uppercase tracking-widest mb-3" style={{ color: '#52525b' }}>
+        {/* Network nav */}
+        <SectionReveal className="py-10 md:py-14">
+          <div className="mb-6 text-center">
+            <p className="font-mono text-xs uppercase tracking-widest mb-2" style={{ color: '#52525b' }}>
               Start here
             </p>
-            <h2 className="text-2xl! sm:text-3xl! lg:text-4xl! font-bold! text-white tracking-tight">
-              Everything is written down.
-            </h2>
+            <p className="font-mono text-sm" style={{ color: '#3f3f46' }}>
+              Every section is a node on the lab network — pick a route off the gateway.
+            </p>
           </div>
-          <SectionPreviewCards />
+          <div className="flex justify-center">
+            <NetworkNav />
+          </div>
         </SectionReveal>
       </div>
 
