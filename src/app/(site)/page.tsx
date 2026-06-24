@@ -17,7 +17,7 @@ export default function HomePage() {
 
   return (
     <>
-      <DocsHero />
+      <DocsHero count={nodes.length} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 md:pb-20">
         {/* Topology + intro */}

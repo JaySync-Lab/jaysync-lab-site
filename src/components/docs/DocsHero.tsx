@@ -6,7 +6,15 @@ import { LoadingLink } from '@/components/LoadingLink';
 
 const GITHUB_URL = 'https://github.com/Anuja-jayasinghe/JaySync-Lab';
 
-export function DocsHero() {
+const WORDS: Record<number, string> = {
+  1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five',
+  6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten',
+};
+
+interface Props { count: number }
+
+export function DocsHero({ count }: Props) {
+  const serviceWord = WORDS[count] ?? String(count);
   return (
     <section
       className="relative min-h-[60vh] md:min-h-[72vh] flex flex-col items-center text-center px-6 overflow-hidden"
@@ -69,7 +77,15 @@ export function DocsHero() {
           className="text-lg max-w-md leading-relaxed"
           style={{ color: '#a1a1aa' }}
         >
-          One box. Five services. Every decision written down — hardware,
+          One box.{' '}
+          <strong
+            className="font-bold not-italic"
+            style={{ color: '#ffffff' }}
+            title={`${count} active containers`}
+          >
+            {serviceWord} services.
+          </strong>
+          {' '}Every decision written down — hardware,
           networking, and every container accounted for.
         </motion.p>
 
