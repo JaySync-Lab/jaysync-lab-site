@@ -9,7 +9,7 @@ const GITHUB_URL = 'https://github.com/Anuja-jayasinghe/JaySync-Lab';
 export function DocsHero() {
   return (
     <section
-      className="relative min-h-[60vh] md:min-h-[72vh] flex flex-col items-center justify-center text-center px-6 overflow-hidden"
+      className="relative min-h-[60vh] md:min-h-[72vh] flex flex-col items-center text-center px-6 overflow-hidden"
       style={{ background: '#080808' }}
     >
       {/* noise texture */}
@@ -31,7 +31,7 @@ export function DocsHero() {
       />
 
       <motion.div
-        className="relative z-10 flex flex-col items-center gap-6 max-w-3xl"
+        className="relative z-10 flex flex-1 flex-col items-center justify-center gap-6 max-w-3xl w-full py-12"
         variants={stagger}
         initial="hidden"
         animate="show"
@@ -105,9 +105,9 @@ export function DocsHero() {
         </motion.div>
       </motion.div>
 
-      {/* scroll hint */}
+      {/* scroll hint — in flow so it never overlaps the centered content */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="relative z-10 pb-6 text-center"
         style={{ color: '#52525b' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -115,7 +115,7 @@ export function DocsHero() {
         aria-hidden="true"
       >
         <span className="block text-[10px] tracking-widest uppercase mb-1">Scroll</span>
-        <span className="block text-center motion-safe:animate-bounce">↓</span>
+        <span className="block motion-safe:animate-bounce">↓</span>
       </motion.div>
     </section>
   );
