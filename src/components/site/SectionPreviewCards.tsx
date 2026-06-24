@@ -38,7 +38,7 @@ const CARDS: Card[] = [
     glyph: '⬡',
   },
   {
-    href: '/changelog',
+    href: '/docs/changelog',
     label: 'Changelog',
     title: 'What changed, when',
     desc: 'A timeline of every infrastructure change since the lab came online.',
