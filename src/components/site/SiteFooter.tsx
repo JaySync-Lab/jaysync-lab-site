@@ -7,7 +7,7 @@ const NAV = [
   { href: '/docs/infrastructure/hardware', label: '/docs'         },
   { href: '/services',                     label: '/services'     },
   { href: '/architecture',                 label: '/architecture' },
-  { href: '/changelog',                    label: '/changelog'    },
+  { href: '/docs/changelog',               label: '/changelog'    },
 ];
 
 interface Props {

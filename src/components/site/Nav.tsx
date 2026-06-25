@@ -10,7 +10,7 @@ const DOCS_URL   = '/docs/infrastructure/hardware';
 const NAV_LINKS = [
   { href: '/services',     label: 'Services'      },
   { href: '/architecture', label: 'Architecture'  },
-  { href: '/changelog',    label: 'Changelog'     },
+  { href: '/docs/changelog', label: 'Changelog'   },
 ];
 
 function GitHubIcon() {

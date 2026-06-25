@@ -22,10 +22,10 @@ interface Props {
 
 export function StatsGrid({ containerCount, ramGb, storageTb, uptimePct, cpu, ssdGb, vaultTb }: Props) {
   const rows: StatRow[] = [
-    { label: 'Containers',    value: containerCount, decimals: 0, suffix: '',    unit: 'LXC + VM on Proxmox'                         },
-    { label: 'RAM installed', value: ramGb,          decimals: 0, suffix: ' GB', unit: `DDR4 · ${cpu}`                               },
-    { label: 'Storage',       value: storageTb,      decimals: 1, suffix: ' TB', unit: `${ssdGb}GB SSD + ${vaultTb}TB vault`         },
-    { label: 'Uptime target', value: uptimePct,      decimals: 1, suffix: '%',   unit: 'Watchman monitored'                          },
+    { label: 'Active nodes',    value: containerCount, decimals: 0, suffix: '',    unit: `LXC · QEMU-KVM · Proxmox VE`                  },
+    { label: 'System memory',   value: ramGb,          decimals: 0, suffix: ' GB', unit: `DDR4 · ${cpu}`                                },
+    { label: 'Raw capacity',    value: storageTb,      decimals: 1, suffix: ' TB', unit: `${ssdGb} GiB NVMe · ${vaultTb} TiB archive`   },
+    { label: 'Availability SLA', value: uptimePct,     decimals: 1, suffix: '%',   unit: 'target · monitored by Uptime Kuma'            },
   ];
 
   return (
