@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import { stagger, fadeUp } from '@/lib/motion';
 import { LoadingLink } from '@/components/LoadingLink';
 
-const GITHUB_URL = 'https://github.com/Anuja-jayasinghe/JaySync-Lab';
+const GITHUB_URL = 'https://github.com/JaySync-Lab/JaySync-Lab';
 
 const WORDS: Record<number, string> = {
   1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five',
