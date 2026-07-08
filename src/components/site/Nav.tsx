@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { LoadingLink } from '@/components/LoadingLink';
 
-const GITHUB_URL = 'https://github.com/Anuja-jayasinghe/JaySync-Lab';
+const GITHUB_URL = 'https://github.com/JaySync-Lab/JaySync-Lab';
 const DOCS_URL   = '/docs/infrastructure/hardware';
 
 const NAV_LINKS = [

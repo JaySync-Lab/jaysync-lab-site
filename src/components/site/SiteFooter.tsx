@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { HostSpec, ServiceNode } from '@/lib/inventory';
 
-const GITHUB = 'https://github.com/Anuja-jayasinghe/JaySync-Lab';
+const GITHUB = 'https://github.com/JaySync-Lab/JaySync-Lab';
 
 const NAV = [
   { href: '/docs/infrastructure/hardware', label: '/docs'         },
