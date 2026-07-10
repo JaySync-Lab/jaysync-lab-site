@@ -10,9 +10,8 @@ const LINES = [
   { tag: 'stat', text: 'All systems nominal' },
 ];
 
-const LINE_MS   = 320;           // gap between each line appearing
-const HOLD_MS   = 480;           // pause after last line before exit
-const SESSION_KEY = 'jl-splash'; // bump suffix to reset across deploys
+const LINE_MS   = 320; // gap between each line appearing
+const HOLD_MS   = 480; // pause after last line before exit
 
 export function SplashScreen() {
   const [active,   setActive]   = useState(false);
@@ -20,7 +19,9 @@ export function SplashScreen() {
   const [exiting,  setExiting]  = useState(false);
 
   useEffect(() => {
-    if (sessionStorage.getItem(SESSION_KEY)) return;
+    // Plays on every page load (not gated to once-per-session) -- explicit
+    // choice: this is a boot-sequence animation, not a first-visit-only
+    // intro, so every fresh load replays it.
     setActive(true);
 
     // stagger lines
@@ -32,7 +33,6 @@ export function SplashScreen() {
     const exitAt = 700 + LINES.length * LINE_MS + HOLD_MS;
     const t = setTimeout(() => {
       setExiting(true);
-      sessionStorage.setItem(SESSION_KEY, '1');
     }, exitAt);
 
     return () => clearTimeout(t);
