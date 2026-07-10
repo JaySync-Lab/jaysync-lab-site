@@ -13,7 +13,7 @@ const NODE_COLOR: Record<string, string> = {
   'uptime-kuma': '#a855f7',
   'home-assistant': '#f59e0b',
   'media-stack': '#22c55e',
-  'production-documentation-engine': '#38bdf8',
+  'playground-controller': '#38bdf8',
 };
 
 const ORBIT = [
@@ -128,7 +128,7 @@ export function NodeConstellation({ nodes, className }: Props) {
             )}
           </circle>
           <text x={pos.x} y={pos.y + 30} textAnchor="middle" fill="#a1a1aa" fontSize={8} fontFamily="monospace">
-            {node.name.replace('production-documentation-engine', 'docs-engine')}
+            {node.name.replace('playground-controller', 'playground')}
           </text>
           <text x={pos.x} y={pos.y + 40} textAnchor="middle" fill="#52525b" fontSize={7} fontFamily="monospace">
             {node.type === 'vm' ? 'VM' : 'CT'} {node.vmid}

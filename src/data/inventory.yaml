@@ -63,14 +63,13 @@ nodes:
     band: media-streaming
 
   - vmid: 105
-    name: production-documentation-engine
+    name: playground-controller
     type: lxc
     ip: "192.168.1.105"
-    role: "Documentation platform"
-    status_name: "Docs Engine"
-    docs: services/production-documentation-engine/README.md
-    band: automation-utilities
-    created: "2026-06-17"
+    role: "Session controller for the public terminal playground"
+    status_name: "Playground Controller"
+    docs: services/playground-controller/README.md
+    band: core-network
 
 overlay:
   - id: tailscale-proxmox

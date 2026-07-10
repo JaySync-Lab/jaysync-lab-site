@@ -18,7 +18,7 @@ const LAYOUT: Record<string, { x: number; y: number; labelSide: 'left' | 'right'
   'uptime-kuma':                     { x: 435, y: 85,  labelSide: 'right' },
   'home-assistant':                  { x: 475, y: 225, labelSide: 'right' },
   'media-stack':                     { x: 375, y: 360, labelSide: 'right' },
-  'production-documentation-engine': { x: 110, y: 345, labelSide: 'left'  },
+  'playground-controller':           { x: 110, y: 345, labelSide: 'left'  },
 };
 
 const NODE_COLOR: Record<string, string> = {
@@ -26,7 +26,7 @@ const NODE_COLOR: Record<string, string> = {
   'uptime-kuma':                     '#a855f7',
   'home-assistant':                  '#f59e0b',
   'media-stack':                     '#22c55e',
-  'production-documentation-engine': '#38bdf8',
+  'playground-controller':           '#38bdf8',
 };
 
 const NODE_SHORT: Record<string, string> = {
@@ -34,7 +34,7 @@ const NODE_SHORT: Record<string, string> = {
   'uptime-kuma':                     'watchman',
   'home-assistant':                  'home asst.',
   'media-stack':                     'media',
-  'production-documentation-engine': 'docs',
+  'playground-controller':           'playground',
 };
 
 // Fixed durations — no Math.random() to avoid hydration mismatch
