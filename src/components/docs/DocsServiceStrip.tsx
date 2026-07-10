@@ -16,7 +16,7 @@ const ACCENT: Record<string, string> = {
   'uptime-kuma':                     '#a855f7',
   'home-assistant':                  '#f59e0b',
   'media-stack':                     '#22c55e',
-  'production-documentation-engine': '#38bdf8',
+  'playground-controller':           '#38bdf8',
 };
 
 function docUrl(node: ServiceNode): string {
