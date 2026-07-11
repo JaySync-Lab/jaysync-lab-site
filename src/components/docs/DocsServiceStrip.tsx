@@ -273,7 +273,10 @@ function ServerRack({ nodes, host }: Props) {
         <div className="flex-1 min-w-0">
           <HostHeaderUnit host={host} />
 
-          {nodes.map((node, i) => (
+          {/* "Live Services" — templates aren't running, so they don't
+              belong in the rack (they're documented on /services and the
+              VMID band diagram instead). */}
+          {nodes.filter((n) => !n.template).map((node, i) => (
             <div key={node.vmid} style={{ borderTop: '1px solid #161616' }}>
               <RackUnit node={node} index={i} />
             </div>

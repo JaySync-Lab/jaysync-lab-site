@@ -22,8 +22,24 @@ function docPath(node: ServiceNode): string {
   return `/docs/${node.docs.replace(/\/(README|index)\.md$/, '').replace(/\.md$/, '')}`;
 }
 
+// Static marker for template nodes — they aren't monitored by Uptime
+// Kuma (nothing is running), so showing a live status dot would be
+// misleading. This states plainly what the node is.
+function TemplateTag() {
+  return (
+    <span
+      className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider"
+      title="Proxmox template — not a running service"
+    >
+      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#a1a1aa' }} />
+      <span className="text-[#71717a]">template</span>
+    </span>
+  );
+}
+
 export function ServiceCard({ node }: Props) {
   const accent = ACCENT[node.name] ?? '#a1a1aa';
+  const isTemplate = !!node.template;
 
   return (
     <motion.div variants={fadeUp}>
@@ -50,7 +66,7 @@ export function ServiceCard({ node }: Props) {
               {node.name.replace(/-/g, ' ')}
             </h3>
           </div>
-          <StatusBadge monitorName={node.status_name} />
+          {isTemplate ? <TemplateTag /> : <StatusBadge monitorName={node.status_name} />}
         </div>
 
         <p className="relative z-10 flex-1 text-sm leading-relaxed" style={{ color: '#71717a' }}>
@@ -58,7 +74,9 @@ export function ServiceCard({ node }: Props) {
         </p>
 
         <div className="relative z-10 flex items-center justify-between">
-          <span className="font-mono text-xs" style={{ color: accent }}>{node.ip}</span>
+          <span className="font-mono text-xs" style={{ color: isTemplate ? '#52525b' : accent }}>
+            {isTemplate ? 'no IP · template' : node.ip}
+          </span>
           <span
             className="inline-flex items-center gap-1 text-xs transition-colors"
             style={{ color: '#52525b' }}

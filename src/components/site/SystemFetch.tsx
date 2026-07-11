@@ -36,13 +36,22 @@ const NODE_ACCENT: Record<string, string> = {
 export function SystemFetch({ host, nodes }: Props) {
   const storageTb = +(host.storage.ssd_gb / 1024 + host.storage.vault_tb).toFixed(1);
 
+  // Templates aren't running services — count them separately so "active"
+  // stays honest.
+  const liveNodes = nodes.filter((n) => !n.template);
+  const templateCount = nodes.length - liveNodes.length;
+  const nodesValue =
+    templateCount > 0
+      ? `${liveNodes.length} active · ${templateCount} template  (LXC · QEMU-KVM on PVE)`
+      : `${liveNodes.length} active  (LXC · QEMU-KVM on PVE)`;
+
   const info: { label: string; value: string }[] = [
     { label: 'Host',    value: host.model                                                               },
     { label: 'OS',      value: `Proxmox VE ${host.proxmox_version}`                                    },
     { label: 'CPU',     value: host.cpu                                                                 },
     { label: 'Memory',  value: `${host.ram_gb} GB DDR4`                                                },
     { label: 'Storage', value: `${storageTb} TB  (${host.storage.ssd_gb} GiB NVMe + ${host.storage.vault_tb} TiB HDD)` },
-    { label: 'Nodes',   value: `${nodes.length} active  (LXC · QEMU-KVM on PVE)`                      },
+    { label: 'Nodes',   value: nodesValue                                                               },
     { label: 'SLA',     value: `${host.uptime_target_pct}% uptime target`                              },
   ];
 
@@ -88,7 +97,7 @@ export function SystemFetch({ host, nodes }: Props) {
 
         {/* node color palette — like terminal colour swatches in neofetch */}
         <div className="flex gap-1.5 mt-4">
-          {nodes.map((node) => (
+          {liveNodes.map((node) => (
             <span
               key={node.vmid}
               className="inline-block rounded-sm"
