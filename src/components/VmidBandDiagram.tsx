@@ -95,7 +95,7 @@ export function VmidBandDiagram({ nodes, bands }: Props) {
               {bandNodes.map((node) => (
                 <p key={node.vmid} className="text-[10px]" style={{ color: 'rgba(255,255,255,0.30)' }}>
                   ▸ CT {node.vmid} — {node.name}{' '}
-                  <span style={{ color: '#3f3f46' }}>({node.ip})</span>
+                  <span style={{ color: '#3f3f46' }}>({node.template ? 'template' : node.ip})</span>
                 </p>
               ))}
             </div>

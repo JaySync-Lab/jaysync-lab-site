@@ -46,7 +46,9 @@ const ROUTER = { x: 285, y: 395 };
 const GAP    = 26; // px gap from node edge to label start
 
 export function NetworkTopology({ nodes, className }: Props) {
-  const placed = nodes.map((node, i) => ({
+  // Templates have no IP and aren't on the network — the topology shows
+  // only live, networked nodes.
+  const placed = nodes.filter((n) => !n.template).map((node, i) => ({
     node,
     layout:   LAYOUT[node.name] ?? { x: 285, y: 100, labelSide: 'below' as const },
     color:    NODE_COLOR[node.name] ?? '#a1a1aa',
