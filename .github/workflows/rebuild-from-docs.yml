@@ -20,17 +20,21 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Sparse-checkout docs/ from JaySync-Lab
+      - name: Sparse-checkout docs/ and infrastructure/ from JaySync-Lab
         run: |
           git clone --depth 1 --filter=blob:none --sparse \
             https://github.com/JaySync-Lab/JaySync-Lab.git docs-source
           cd docs-source
-          git sparse-checkout set docs
+          git sparse-checkout set docs infrastructure
 
-      - name: Replace content/ with freshly pulled docs
+      - name: Replace content/ and inventory with freshly pulled copies
         run: |
           rm -rf content
           cp -r docs-source/docs content
+          # inventory.yaml is the single source of truth in JaySync-Lab —
+          # the homepage/architecture/services pages read src/data/inventory.yaml,
+          # so it's pulled here alongside docs/ rather than hand-maintained.
+          cp docs-source/infrastructure/inventory.yaml src/data/inventory.yaml
           rm -rf docs-source
 
       - name: Filter out draft pages
@@ -47,24 +51,24 @@ jobs:
       - name: Pre-flight build (gate two — must pass before anything is committed)
         run: npm run build
 
-      - name: Check for actual content changes
+      - name: Check for actual content or inventory changes
         id: diff
         run: |
-          if git diff --quiet -- content; then
+          if git diff --quiet -- content src/data/inventory.yaml; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Commit and push updated content
+      - name: Commit and push updated content and inventory
         if: steps.diff.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add content
-          git commit -m "docs: sync content from JaySync-Lab"
+          git add content src/data/inventory.yaml
+          git commit -m "docs: sync content + inventory from JaySync-Lab"
           git push
 
       - name: No changes to deploy
         if: steps.diff.outputs.changed == 'false'
-        run: echo "Docs pulled successfully but produced no content diff — nothing to commit."
+        run: echo "Docs + inventory pulled successfully but produced no diff — nothing to commit."
