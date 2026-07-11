@@ -62,7 +62,7 @@ export default function ArchitecturePage() {
           VMID band allocation — 100 to 199
         </p>
         <div
-          className="overflow-x-auto rounded-2xl p-6"
+          className="band-diagram-scroll overflow-x-auto rounded-2xl p-6"
           style={{
             background: 'rgba(255,255,255,0.02)',
             border: '1px solid rgba(255,255,255,0.07)',
@@ -70,6 +70,12 @@ export default function ArchitecturePage() {
         >
           <VmidBandDiagram nodes={nodes} bands={vmid_bands} />
         </div>
+        <p
+          className="band-diagram-hint font-mono text-[10px] mt-2 text-right"
+          style={{ color: '#52525b' }}
+        >
+          ← swipe to see full diagram →
+        </p>
       </SectionReveal>
     </div>
   );

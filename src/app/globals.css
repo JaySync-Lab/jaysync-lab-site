@@ -70,6 +70,38 @@
   --color-fd-ring: #9ca3af;
 }
 
+/* VMID band diagram (architecture page): the diagram's rows deliberately
+   don't wrap (min-w-[480px], long CT/purpose entries), so it's wider than
+   a mobile viewport by design and scrolls horizontally within its own
+   card. Without a visual cue, that's not discoverable on a touch device --
+   this fade + hint make the scroll affordance obvious. Desktop viewports
+   fit the whole diagram without scrolling, so this only shows on
+   coarse-pointer (touch) devices. */
+.band-diagram-scroll {
+  position: relative;
+}
+
+.band-diagram-hint {
+  display: none;
+}
+
+@media (pointer: coarse) {
+  .band-diagram-scroll::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 32px;
+    pointer-events: none;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.6));
+  }
+
+  .band-diagram-hint {
+    display: block;
+  }
+}
+
 .dark .docs-zone {
   --color-fd-background: #111317;
   --color-fd-foreground: #f3f4f6;
