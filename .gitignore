@@ -38,6 +38,7 @@ next-env.d.ts
 .source/
 
 
-# graphify - ignore machine-specific cache and generated visuals
+# graphify - keep graph.json/GRAPH_REPORT.md/graph.html tracked (the
+# point is a future session can use this without rebuilding); only the
+# large machine-local raw-extraction cache is ignored.
 graphify-out/cache/
-graphify-out/*.html

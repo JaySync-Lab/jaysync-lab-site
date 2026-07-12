@@ -1,123 +1,133 @@
-# Graph Report - .  (2026-06-22)
+# Graph Report - .  (2026-07-12)
 
 ## Corpus Check
-- Corpus is ~8,659 words - fits in a single context window. You may not need a graph.
+- Corpus is ~21,890 words - fits in a single context window. You may not need a graph.
 
 ## Summary
-- 176 nodes · 272 edges · 12 communities (10 shown, 2 thin omitted)
-- Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 25 edges (avg confidence: 0.83)
-- Token cost: 0 input · 0 output
+- 339 nodes · 480 edges · 20 communities (16 shown, 4 thin omitted)
+- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 19 edges (avg confidence: 0.84)
+- Token cost: 137,166 input · 29,476 output
 
 ## Community Hubs (Navigation)
-- [[_COMMUNITY_Package & Build Dependencies|Package & Build Dependencies]]
-- [[_COMMUNITY_Motion & Animation System|Motion & Animation System]]
-- [[_COMMUNITY_VMID Band Visualization|VMID Band Visualization]]
-- [[_COMMUNITY_Root Layout & Fonts|Root Layout & Fonts]]
-- [[_COMMUNITY_Interactive UI Components|Interactive UI Components]]
+- [[_COMMUNITY_CLAUDE.md Conventions & Gotchas|CLAUDE.md Conventions & Gotchas]]
+- [[_COMMUNITY_App Layout & Branding|App Layout & Branding]]
+- [[_COMMUNITY_Changelog & Motion Utilities|Changelog & Motion Utilities]]
+- [[_COMMUNITY_Loading Link & Docs Hero Components|Loading Link & Docs Hero Components]]
+- [[_COMMUNITY_Dependencies (Fumadocs, Tailwind)|Dependencies (Fumadocs, Tailwind)]]
+- [[_COMMUNITY_Live Status Badge (Uptime Kuma)|Live Status Badge (Uptime Kuma)]]
 - [[_COMMUNITY_TypeScript Config|TypeScript Config]]
-- [[_COMMUNITY_Uptime Kuma Status Monitor|Uptime Kuma Status Monitor]]
-- [[_COMMUNITY_Docs Routing & Source|Docs Routing & Source]]
-- [[_COMMUNITY_Fumadocs Build Pipeline|Fumadocs Build Pipeline]]
-- [[_COMMUNITY_Changelog System|Changelog System]]
-- [[_COMMUNITY_Dev Launch Config|Dev Launch Config]]
-- [[_COMMUNITY_Claude Settings|Claude Settings]]
+- [[_COMMUNITY_Hardware & Storage Docs|Hardware & Storage Docs]]
+- [[_COMMUNITY_404 Page & Sitemap|404 Page & Sitemap]]
+- [[_COMMUNITY_Docs Landing Redesign Plan (historical)|Docs Landing Redesign Plan (historical)]]
+- [[_COMMUNITY_Community 10|Community 10]]
+- [[_COMMUNITY_Community 11|Community 11]]
+- [[_COMMUNITY_Community 12|Community 12]]
+- [[_COMMUNITY_Community 13|Community 13]]
+- [[_COMMUNITY_Community 18|Community 18]]
+- [[_COMMUNITY_Community 19|Community 19]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `compilerOptions` - 16 edges
-2. `fadeUp` - 14 edges
-3. `ServiceNode` - 12 edges
-4. `stagger` - 9 edges
-5. `getInventory()` - 8 edges
-6. `PageHeader()` - 7 edges
-7. `SectionReveal()` - 7 edges
-8. `SiteLayout()` - 6 edges
-9. `Hero()` - 6 edges
-10. `ServiceCard()` - 6 edges
+1. `Changelog Page` - 20 edges
+2. `compilerOptions` - 16 edges
+3. `inventory.yaml (Single Source of Truth)` - 16 edges
+4. `ServiceNode` - 15 edges
+5. `HostSpec` - 13 edges
+6. `Playground Controller (CT 105)` - 11 edges
+7. `getInventory()` - 9 edges
+8. `fadeUp` - 8 edges
+9. `Rebuild from Docs Workflow` - 8 edges
+10. `Media Stack (CT 104)` - 8 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `Uptime Kuma Alert Email Template` --conceptually_related_to--> `ServiceNode`  [INFERRED]
-  content/templates/uptime-kuma-alert.html → src/lib/inventory.ts
-- `ServiceCard()` --semantically_similar_to--> `SectionPreviewCards()`  [INFERRED] [semantically similar]
-  src/components/site/ServiceCard.tsx → src/components/site/SectionPreviewCards.tsx
-- `Package Manifest (jaysync-lab-site)` --references--> `Fumadocs MDX Documentation System`  [EXTRACTED]
-  package.json → next.config.ts
-- `DocsPage (catch-all slug)` --implements--> `Fumadocs MDX Documentation System`  [EXTRACTED]
-  src/app/docs/[[...slug]]/page.tsx → next.config.ts
-- `DocsLayout` --implements--> `Fumadocs MDX Documentation System`  [EXTRACTED]
-  src/app/docs/layout.tsx → next.config.ts
+- `Real End-to-End Verification Convention` --semantically_similar_to--> `Mobile Ctrl Toolbar Real-Device Bug Fix`  [INFERRED] [semantically similar]
+  CLAUDE.md → content/changelog.mdx
+- `Docs Folder Restructure + RULEBOOK.md (2026-07-03)` --rationale_for--> `Rebuild from Docs Workflow`  [INFERRED]
+  content/changelog.mdx → .github/workflows/rebuild-from-docs.yml
+- `Wide Diagram Scroll Affordance Pattern` --conceptually_related_to--> `VMID Band Taxonomy (100-199)`  [INFERRED]
+  CLAUDE.md → src/data/inventory.yaml
+- `inventory.yaml (Single Source of Truth)` --references--> `HP ProDesk 400 G3 MT Host`  [EXTRACTED]
+  src/data/inventory.yaml → content/infrastructure/hardware.mdx
+- `jaysync-lab-site Overview (CLAUDE.md)` --references--> `JaySync-Lab (hub repo / homelab source of truth)`  [EXTRACTED]
+  CLAUDE.md → README.md
 
 ## Import Cycles
 - None detected.
 
 ## Hyperedges (group relationships)
-- **Site Route Pages Group (Home, Services, Architecture, Changelog)** — site_page_homepage, site_services_servicespage, site_architecture_architecturepage, site_changelog_changelogpage [INFERRED 0.95]
-- **Fumadocs MDX Build & Runtime System** — next_config, source_config, docs_layout_docslayout, slug_page_docspage [EXTRACTED 1.00]
-- **VMID Band Visualization Flow (Architecture Page + VmidBandDiagram + Concept)** — site_architecture_architecturepage, components_vmidband_vmidbanddiagram, concept_vmid_band_system [INFERRED 0.95]
-- **Shared Motion Variant System (fadeUp, stagger, wordReveal used across site components)** — lib_motion_fadeup, lib_motion_stagger, lib_motion_wordreveal, site_hero_hero, site_pageheader_pageheader, site_sectionreveal_sectionreveal, site_timeline_timeline, site_servicecard_servicecard, site_sectionpreviewcards_sectionpreviewcards [EXTRACTED 1.00]
-- **Inventory Data Pipeline (YAML → getInventory → ServiceNode → NodeConstellation/ServiceCard)** — lib_inventory_getinventory, lib_inventory_servicenode, site_nodeconstellation_nodeconstellation, site_servicecard_servicecard [EXTRACTED 1.00]
-- **Reduced Motion Accessibility Pattern across animated components** — concept_reduced_motion_accessibility, site_counter_counter, site_nodeconstellation_nodeconstellation, lib_motion_fadeup [INFERRED 0.85]
+- **Docs Auto-Sync Pipeline** — workflows_rebuild_from_docs_workflow, data_inventory_inventory_yaml, content_index_lab_doc, claude_overview [INFERRED 0.85]
+- **Playground Sandbox Architecture** — services_playground_controller_playground_controller, services_playground_controller_golden_template, services_playground_controller_dual_homed_bridge, data_inventory_vmid_bands [INFERRED 0.80]
+- **Docs Landing Redesign Planning Trio** — specs_2026_06_19_cinematic_redesign_design_spec, specs_2026_06_23_docs_landing_redesign_spec, plans_2026_06_23_docs_landing_redesign_plan [INFERRED 0.90]
+- **Lab Service Topology** — infrastructure_proxmox_host_proxmox_host, services_pi_hole_pi_hole, services_uptime_kuma_uptime_kuma, services_home_assistant_home_assistant, services_media_stack_media_stack, services_playground_controller_playground_controller [EXTRACTED 1.00]
 
-## Communities (12 total, 2 thin omitted)
+## Communities (20 total, 4 thin omitted)
 
-### Community 0 - "Package & Build Dependencies"
+### Community 0 - "CLAUDE.md Conventions & Gotchas"
+Cohesion: 0.05
+Nodes (62): Real End-to-End Verification Convention, isLiveNode() Convention, jaysync-lab-site Overview (CLAUDE.md), scanline-overlay Overflow-Hidden Requirement, Splash Screen Every-Load Behavior, Wide Diagram Scroll Affordance Pattern, Changelog Page, Narrowly Scoped Controller API Token (+54 more)
+
+### Community 1 - "App Layout & Branding"
+Cohesion: 0.05
+Nodes (43): JaySync-Lab "J/S" Monogram Icon, BASE, generateMetadata(), inter, mono, ArchitecturePage(), metadata, BAND_COLORS (+35 more)
+
+### Community 2 - "Changelog & Motion Utilities"
+Cohesion: 0.08
+Nodes (24): ChangelogEntry, getNodes(), easeOut, fadeIn, fadeUp, spring, springScale, stagger (+16 more)
+
+### Community 3 - "Loading Link & Docs Hero Components"
+Cohesion: 0.07
+Nodes (18): LoadingLink(), Props, DocsHero(), Props, WORDS, Nav(), NAV_LINKS, ACCENT (+10 more)
+
+### Community 4 - "Dependencies (Fumadocs, Tailwind)"
 Cohesion: 0.07
 Nodes (27): dependencies, fumadocs-core, fumadocs-mdx, fumadocs-ui, js-yaml, lucide-react, motion, next (+19 more)
 
-### Community 1 - "Motion & Animation System"
-Cohesion: 0.16
-Nodes (19): metadata, CSS Keyframe Animation (No JS), easeOut, fadeIn, fadeUp, spring, springScale, stagger (+11 more)
-
-### Community 2 - "VMID Band Visualization"
-Cohesion: 0.15
-Nodes (20): ArchitecturePage(), BAND_COLORS, Props, VmidBandDiagram(), VMID Banding Scheme, getBands(), getInventory(), getNodes() (+12 more)
-
-### Community 3 - "Root Layout & Fonts"
-Cohesion: 0.14
-Nodes (15): inter, metadata, mono, RootLayout(), VmidBandDiagram, Homelab Topology (Proxmox + ZTE + Tailscale), Scroll-Aware Navigation Glass Effect, VMID Band Partitioning (100-199) (+7 more)
-
-### Community 4 - "Interactive UI Components"
-Cohesion: 0.15
-Nodes (13): Reduced Motion Accessibility Pattern, Counter(), Props, CENTER, NODE_COLOR, NodeConstellation(), ORBIT, Props (+5 more)
-
-### Community 5 - "TypeScript Config"
+### Community 5 - "Live Status Badge (Uptime Kuma)"
 Cohesion: 0.12
-Nodes (17): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+9 more)
+Nodes (13): DOT, HeartbeatEntry, HeartbeatResponse, MonitorEntry, Props, StatusBadge(), StatusPageResponse, StatusValue (+5 more)
 
-### Community 6 - "Uptime Kuma Status Monitor"
-Cohesion: 0.21
-Nodes (11): DOT, fetchMonitorStatus(), HeartbeatEntry, HeartbeatResponse, MonitorEntry, Props, StatusBadge(), StatusPageResponse (+3 more)
+### Community 6 - "TypeScript Config"
+Cohesion: 0.10
+Nodes (19): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+11 more)
 
-### Community 7 - "Docs Routing & Source"
-Cohesion: 0.20
-Nodes (4): source, Props, exclude, include
+### Community 7 - "Hardware & Storage Docs"
+Cohesion: 0.14
+Nodes (18): BIOS Pre-Installation Configuration, Hardware Specs Page, HP ProDesk 400 G3 MT Host, SSD/HDD Storage Tiering, Single Flat-LAN Bridge Design Rationale, Intel iGPU Passthrough Setup, Proxmox Host Page, Proxmox Storage Pool Definitions (+10 more)
 
-### Community 8 - "Fumadocs Build Pipeline"
-Cohesion: 0.18
-Nodes (8): Fumadocs MDX Documentation System, DocsLayout, nextConfig, withMDX, Package Manifest (jaysync-lab-site), config, DocsPage (catch-all slug), { docs, meta }
+### Community 8 - "404 Page & Sitemap"
+Cohesion: 0.17
+Nodes (7): LINES, NotFound(), BASE, source, generateMetadata(), Page(), Props
 
-### Community 9 - "Changelog System"
-Cohesion: 0.44
-Nodes (6): ChangelogPage(), metadata, ChangelogEntry, getChangelog(), Props, Timeline()
+### Community 9 - "Docs Landing Redesign Plan (historical)"
+Cohesion: 0.14
+Nodes (15): superpowers:executing-plans skill, Docs Landing Page Redesign — Implementation Plan, superpowers:subagent-driven-development skill, Task 1: Restructure Routing ([[...slug]] -> [...slug]), Task 2: Build Five Landing Components, Task 3: Wire the Landing Page, Docs Zone Grey Palette, Full-Send Motion System (+7 more)
+
+### Community 10 - "Community 10"
+Cohesion: 0.33
+Nodes (4): Counter(), Props, Props, StatRow
+
+### Community 11 - "Community 11"
+Cohesion: 0.67
+Nodes (3): getStatus(), removed, walk()
 
 ## Knowledge Gaps
-- **83 isolated node(s):** `withMDX`, `nextConfig`, `name`, `version`, `private` (+78 more)
+- **124 isolated node(s):** `withMDX`, `nextConfig`, `name`, `version`, `private` (+119 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `HomePage()` connect `Root Layout & Fonts` to `VMID Band Visualization`, `Interactive UI Components`?**
-  _High betweenness centrality (0.084) - this node is a cross-community bridge._
-- **Why does `fadeUp` connect `Motion & Animation System` to `Changelog System`, `VMID Band Visualization`, `Interactive UI Components`?**
-  _High betweenness centrality (0.041) - this node is a cross-community bridge._
+- **Why does `inventory.yaml (Single Source of Truth)` connect `CLAUDE.md Conventions & Gotchas` to `Docs Landing Redesign Plan (historical)`, `Hardware & Storage Docs`?**
+  _High betweenness centrality (0.036) - this node is a cross-community bridge._
+- **Why does `Changelog Page` connect `CLAUDE.md Conventions & Gotchas` to `Hardware & Storage Docs`?**
+  _High betweenness centrality (0.025) - this node is a cross-community bridge._
+- **Why does `Docs Landing Page Redesign — Implementation Plan` connect `Docs Landing Redesign Plan (historical)` to `CLAUDE.md Conventions & Gotchas`?**
+  _High betweenness centrality (0.021) - this node is a cross-community bridge._
 - **What connects `withMDX`, `nextConfig`, `name` to the rest of the system?**
-  _85 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Package & Build Dependencies` be split into smaller, more focused modules?**
-  _Cohesion score 0.07142857142857142 - nodes in this community are weakly interconnected._
-- **Should `Root Layout & Fonts` be split into smaller, more focused modules?**
-  _Cohesion score 0.1437908496732026 - nodes in this community are weakly interconnected._
-- **Should `Interactive UI Components` be split into smaller, more focused modules?**
-  _Cohesion score 0.14705882352941177 - nodes in this community are weakly interconnected._
-- **Should `TypeScript Config` be split into smaller, more focused modules?**
-  _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
+  _135 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `CLAUDE.md Conventions & Gotchas` be split into smaller, more focused modules?**
+  _Cohesion score 0.05288207297726071 - nodes in this community are weakly interconnected._
+- **Should `App Layout & Branding` be split into smaller, more focused modules?**
+  _Cohesion score 0.05028248587570622 - nodes in this community are weakly interconnected._
+- **Should `Changelog & Motion Utilities` be split into smaller, more focused modules?**
+  _Cohesion score 0.08408408408408409 - nodes in this community are weakly interconnected._
