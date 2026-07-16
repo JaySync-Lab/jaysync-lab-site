@@ -1,0 +1,116 @@
+---
+title: "Reverse Proxy (Nginx Proxy Manager)"
+description: "Friendly *.lab.jaysynclab.com URLs for every lab service, fronted by a wildcard TLS cert."
+status: published
+icon: "Route"
+---
+
+> Nginx Proxy Manager runs as an unprivileged LXC container (VMID 102)
+> on the Proxmox host, giving every internal service a real, memorable,
+> trusted-HTTPS URL instead of raw `IP:port` — and, combined with
+> [Tailscale subnet routing](/docs/networking/tailscale-routing), the
+> same URLs work identically whether you're on the home VLAN or remote.
+
+## Why
+
+Before this, services were only reachable by raw `IP:port`
+(`192.168.1.102:3001` for Uptime Kuma, etc.), and — before the subnet
+routing fix — only from inside the home VLAN at all.
+
+## Domain decision
+
+`jaysynclab.com` was purchased and its DNS moved to Cloudflare
+specifically so the homelab's internal service URLs (and eventually the
+public docs site) live under their own domain, separate from other
+personal projects on `anujajay.com`. See
+[JaySync-Lab#9](https://github.com/JaySync-Lab/JaySync-Lab/issues/9) and
+[jaysync-lab-site#13](https://github.com/JaySync-Lab/jaysync-lab-site/issues/13)
+for the (separate, backlogged) public-site domain migration — that is
+**not** this project. This page is only about internal `*.lab.jaysynclab.com`
+service URLs.
+
+## Architecture
+
+**Nginx Proxy Manager (VMID 102)**
+- `192.168.1.106`, `core-network` band (100-119)
+- Unprivileged LXC, Debian 13, `nesting=1,keyctl=1` (Docker-in-LXC)
+- Docker Compose deployment (`jc21/nginx-proxy-manager:latest`)
+
+**Certificate**
+- One wildcard cert: `*.lab.jaysynclab.com`, issued via Let's Encrypt
+  DNS-01 through NPM's built-in Cloudflare DNS plugin
+- Cloudflare API token scoped to `Zone:DNS:Edit` on the `jaysynclab.com`
+  zone only
+- No public A/AAAA record is ever published for anything under this
+  domain — the DNS-01 challenge only needs a transient TXT record
+- Auto-renews via NPM/certbot; issued 2026-07-15, expires 2026-10-13
+
+**Name resolution**
+- Pi-hole (`192.168.1.101`) has a wildcard local DNS entry
+  (`misc.dnsmasq_lines = ["address=/lab.jaysynclab.com/192.168.1.106"]`
+  in `/etc/pihole/pihole.toml` — Pi-hole v6/FTL no longer reads the
+  classic `/etc/dnsmasq.d/*.conf` layout, this is the v6-native way)
+- Pi-hole is also configured as a **split-DNS** nameserver in the
+  Tailscale admin console (DNS tab → nameserver `192.168.1.101`,
+  restricted to domain `lab.jaysynclab.com`), so remote/off-VLAN
+  clients resolve these URLs the same way home-VLAN clients do,
+  without overriding all other DNS on the device
+
+## Proxy hosts
+
+| Friendly URL | Backend | Status |
+| :--- | :--- | :--- |
+| `pihole.lab.jaysynclab.com` | 192.168.1.101:80 | ✅ Working, on- and off-VLAN |
+| `kuma.lab.jaysynclab.com` | 192.168.1.102:3001 | ✅ Working, on- and off-VLAN |
+| `proxmox.lab.jaysynclab.com` | 192.168.1.100:8006 (https) | ✅ Working |
+| `ha.lab.jaysynclab.com` | 192.168.1.12:8123 | ⚠️ Works on home VLAN only — see below |
+| `grafana.lab.jaysynclab.com` | 192.168.1.120:3000 | ✅ Working |
+
+`media-stack` (VMID 104: Jellyfin, Sonarr, Radarr, Prowlarr,
+qBittorrent) is **deliberately not** behind this reverse proxy —
+explicit decision, not an oversight.
+
+### Home Assistant caveat
+
+Home Assistant needed one extra piece of config that the other
+services didn't: by default it rejects requests arriving through an
+unrecognized reverse proxy with `400 Bad Request`. Fixed by adding to
+its `configuration.yaml` (edited via the HAOS Supervisor CLI — there's
+no SSH access into HAOS by default):
+
+```yaml
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 192.168.1.106
+```
+
+Separately, and still unresolved: Home Assistant is unreachable
+off-VLAN over Tailscale even by direct IP (unlike every other host on
+the subnet). Likely related to Proxmox's per-VM firewall being enabled
+on that VM's network interface, but not yet root-caused — tracked in
+[JaySync-Lab#10](https://github.com/JaySync-Lab/JaySync-Lab/issues/10),
+parked until investigated on-site.
+
+## Ongoing management
+
+NPM has its own dedicated account (`claude-agent@jaysynclab.com`,
+separate from the human admin login) so new services get a proxy host
+added automatically as they come online, via NPM's REST API, without
+needing to hand-edit anything in the UI each time. See
+[MAINTENANCE.md](../../MAINTENANCE.md#ai-assisted-infrastructure-access)
+for the full account/credential picture.
+
+## Known gotchas (for next time)
+
+- **Let's Encrypt rejects `@example.com`** — NPM's default admin email
+  must be changed to a real address before requesting any cert, or
+  every request fails with a generic "Internal Error" that looks like a
+  DNS/Cloudflare problem but isn't.
+- **File permissions inside Docker volumes**: config files written from
+  the Proxmox host (outside the container) default to whatever the
+  writing process's umask is — a `600` root-owned file is unreadable by
+  a container process running as non-root, causing silent crashloops.
+- **Proxmox behind a reverse proxy needs `Scheme: https`** in the proxy
+  host config — port 8006 is TLS-only, and using `http` as the forward
+  scheme causes a redirect loop, not a clean connection error.
