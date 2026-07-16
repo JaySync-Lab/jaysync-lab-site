@@ -7,7 +7,7 @@ hub — this one is presentation, not source).
 ## What this is
 
 The Next.js + Fumadocs site that publishes the JaySync-Lab homelab docs —
-live at **[lab.anujajay.com](https://lab.anujajay.com)**. Homepage + docs
+live at **[jaysynclab.com](https://jaysynclab.com)**. Homepage + docs
 section + a designed `/architecture` and `/services` view driven by
 structured data, not just prose.
 
