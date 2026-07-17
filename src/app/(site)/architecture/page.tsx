@@ -26,33 +26,31 @@ export default function ArchitecturePage() {
         description="A single Proxmox host behind a ZTE router. VMID bands partition the 100–199 space into functional layers; each active container sits at its assigned slot."
       />
 
-      {/* Topology */}
-      <SectionReveal className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start mb-12 md:mb-16" staggerChildren>
-        <div>
-          <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: '#52525b' }}>
-            Topology
-          </p>
-          <div className="flex flex-wrap gap-3">
-            {physicalNodes.map((node) => (
-              <div
-                key={node.label}
-                className="rounded-xl p-4 font-mono text-xs"
-                style={{
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                }}
-              >
-                <p className="font-semibold text-white text-sm mb-1">{node.label}</p>
-                <p className="font-mono text-xs" style={{ color: '#a1a1aa' }}>{node.ip}</p>
-                <p className="mt-1 text-[11px] max-w-[200px] leading-relaxed" style={{ color: '#52525b' }}>
-                  {node.role}
-                </p>
-              </div>
-            ))}
-          </div>
+      {/* Topology — the centerpiece, full width */}
+      <SectionReveal className="mb-12 md:mb-16" staggerChildren>
+        <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: '#52525b' }}>
+          Topology
+        </p>
+        <div className="flex flex-wrap gap-3 mb-6">
+          {physicalNodes.map((node) => (
+            <div
+              key={node.label}
+              className="rounded-xl p-4 font-mono text-xs"
+              style={{
+                background: 'rgba(255,255,255,0.03)',
+                border: '1px solid rgba(255,255,255,0.08)',
+              }}
+            >
+              <p className="font-semibold text-white text-sm mb-1">{node.label}</p>
+              <p className="font-mono text-xs" style={{ color: '#a1a1aa' }}>{node.ip}</p>
+              <p className="mt-1 text-[11px] max-w-[200px] leading-relaxed" style={{ color: '#52525b' }}>
+                {node.role}
+              </p>
+            </div>
+          ))}
         </div>
-        <div className="w-full max-w-[420px] mx-auto md:max-w-none">
-          <NetworkTopology nodes={nodes} className="w-full h-auto" />
+        <div className="w-full max-w-[720px] mx-auto">
+          <NetworkTopology nodes={nodes} bands={vmid_bands} className="w-full h-auto" />
         </div>
       </SectionReveal>
 

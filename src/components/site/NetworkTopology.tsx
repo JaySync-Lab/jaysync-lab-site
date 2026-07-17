@@ -1,70 +1,116 @@
 'use client';
 
 import { motion } from 'motion/react';
-import type { ServiceNode } from '@/lib/inventory';
+import type { ServiceNode, VmidBand } from '@/lib/inventory';
 
 interface Props {
   nodes: ServiceNode[];
+  bands: VmidBand[];
   className?: string;
 }
 
-// viewBox 580×460 — wide enough that right-side labels never clip
-const VW = 580;
-const VH = 460;
+// viewBox — sized generously now that this diagram gets a full-width slot
+// on the Architecture page instead of half a 2-col grid. Margins here are
+// deliberately wide: verified numerically (not just eyeballed) that even
+// a 4-node branch with the longest current label ("Playground Controller")
+// stays within bounds on either side, with room to spare as bands grow.
+const VW = 800;
+const VH = 620;
 
-// Radial positions around Proxmox hub
-const LAYOUT: Record<string, { x: number; y: number; labelSide: 'left' | 'right' | 'below' }> = {
-  'pi-hole':                         { x: 105, y: 85,  labelSide: 'left'  },
-  'uptime-kuma':                     { x: 435, y: 85,  labelSide: 'right' },
-  'home-assistant':                  { x: 475, y: 225, labelSide: 'right' },
-  'media-stack':                     { x: 375, y: 360, labelSide: 'right' },
-  'playground-controller':           { x: 110, y: 345, labelSide: 'left'  },
+const HUB    = { x: 400, y: 290 };
+const ROUTER = { x: 400, y: 470 }; // fixed, straight down from the hub
+
+// Band branches are distributed around the hub, avoiding a wedge reserved
+// for the router spine (centered on the router's own angle, 90°).
+const ROUTER_ANGLE = 90;
+const ROUTER_GAP   = 70; // degrees kept clear around the router spine
+const BRANCH_START = ROUTER_ANGLE + ROUTER_GAP / 2;
+const BRANCH_ARC   = 360 - ROUTER_GAP;
+
+const JUNCTION_RADIUS = 58;
+const NODE_BASE_RADIUS = 96;
+const NODE_STEP = 46;
+const GAP = 24; // px gap from node edge to label start
+
+// One distinct color per band — the same grouping already driving the
+// VMID band diagram below this component, now visualized as branch color.
+const BAND_COLOR: Record<string, string> = {
+  'core-network':            '#60a5fa',
+  'automation-utilities':    '#a855f7',
+  'specialized-controllers': '#f59e0b',
+  'media-streaming':         '#22c55e',
+  'sandboxes-testing':       '#38bdf8',
 };
 
-const NODE_COLOR: Record<string, string> = {
-  'pi-hole':                         '#60a5fa',
-  'uptime-kuma':                     '#a855f7',
-  'home-assistant':                  '#f59e0b',
-  'media-stack':                     '#22c55e',
-  'playground-controller':           '#38bdf8',
+const BAND_SHORT: Record<string, string> = {
+  'core-network':            'core network',
+  'automation-utilities':    'automation',
+  'specialized-controllers': 'controllers',
+  'media-streaming':         'media',
+  'sandboxes-testing':       'sandboxes',
 };
 
-const NODE_SHORT: Record<string, string> = {
-  'pi-hole':                         'pi-hole',
-  'uptime-kuma':                     'watchman',
-  'home-assistant':                  'home asst.',
-  'media-stack':                     'media',
-  'playground-controller':           'playground',
-};
+// Individual node accent colors — deliberately a different palette from
+// the band colors above, cycled by stable (vmid-sorted) index, so each
+// node stays visually distinct from its own branch's tint.
+const NODE_PALETTE = ['#f472b6', '#facc15', '#34d399', '#818cf8', '#fb7185', '#2dd4bf', '#c084fc', '#fbbf24'];
 
 // Fixed durations — no Math.random() to avoid hydration mismatch
-const FLOW_DUR  = [2.2, 1.9, 2.6, 2.0, 2.4];
-const PULSE_DUR = [3.2, 3.6, 2.9, 3.4, 3.0];
+const FLOW_DUR  = [2.2, 1.9, 2.6, 2.0, 2.4, 2.1, 2.7, 1.8];
+const PULSE_DUR = [3.2, 3.6, 2.9, 3.4, 3.0, 3.5, 3.1, 3.3];
 
-const HUB    = { x: 285, y: 215 };
-const ROUTER = { x: 285, y: 395 };
-const GAP    = 26; // px gap from node edge to label start
+function toRad(deg: number) {
+  return (deg * Math.PI) / 180;
+}
 
-export function NetworkTopology({ nodes, className }: Props) {
+export function NetworkTopology({ nodes, bands, className }: Props) {
   // Templates have no IP and aren't on the network — the topology shows
   // only live, networked nodes.
-  const placed = nodes.filter((n) => !n.template).map((node, i) => ({
-    node,
-    layout:   LAYOUT[node.name] ?? { x: 285, y: 100, labelSide: 'below' as const },
-    color:    NODE_COLOR[node.name] ?? '#a1a1aa',
-    short:    NODE_SHORT[node.name] ?? node.name,
-    flowDur:  FLOW_DUR[i % FLOW_DUR.length],
-    pulseDur: PULSE_DUR[i % PULSE_DUR.length],
-  }));
+  const liveNodes = nodes.filter((n) => !n.template);
+
+  // Only bands with at least one live node get a branch — an empty band
+  // (e.g. sandboxes-testing today) simply doesn't appear.
+  const activeBands = bands.filter((b) => liveNodes.some((n) => n.band === b.id));
+
+  const branches = activeBands.map((band, i) => {
+    const angleDeg = BRANCH_START + (i + 0.5) * (BRANCH_ARC / activeBands.length);
+    const angleRad = toRad(angleDeg);
+    const dirX = Math.cos(angleRad);
+    const dirY = Math.sin(angleRad);
+    const color = BAND_COLOR[band.id] ?? '#a1a1aa';
+    const bandNodes = liveNodes
+      .filter((n) => n.band === band.id)
+      .sort((a, b2) => a.vmid - b2.vmid);
+
+    return {
+      band,
+      color,
+      dirX,
+      dirY,
+      junction: { x: HUB.x + dirX * JUNCTION_RADIUS, y: HUB.y + dirY * JUNCTION_RADIUS },
+      nodes: bandNodes.map((node, j) => ({
+        node,
+        x: HUB.x + dirX * (NODE_BASE_RADIUS + j * NODE_STEP),
+        y: HUB.y + dirY * (NODE_BASE_RADIUS + j * NODE_STEP),
+        labelSide: (dirX >= 0 ? 'right' : 'left') as 'left' | 'right',
+      })),
+    };
+  });
+
+  // Flattened, globally-indexed for stable per-node color/animation timing
+  // regardless of which branch a node lands in.
+  const withIndex = branches
+    .flatMap((b) => b.nodes.map((n) => ({ ...n, branchColor: b.color })))
+    .map((p, gi) => ({ ...p, gi }));
 
   return (
     <motion.svg
       viewBox={`0 0 ${VW} ${VH}`}
-      // overflow visible so breathing pulse rings don't get hard-clipped
+      // overflow visible so breathing pulse rings/labels don't get hard-clipped
       style={{ overflow: 'visible', width: '100%', height: 'auto' }}
       className={className}
       role="img"
-      aria-label="Network topology: Proxmox host connecting five service containers via virtual bridge"
+      aria-label="Network topology: Proxmox host connecting service containers, grouped by VMID band"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.0, delay: 0.2 }}
@@ -98,29 +144,55 @@ export function NetworkTopology({ nodes, className }: Props) {
         <animate attributeName="stroke-dashoffset" from="0" to="-10" dur="0.8s" repeatCount="indefinite" />
       </line>
 
-      {/* service connection lines */}
-      {placed.map(({ node, layout, color, flowDur }) => {
-        const { x, y } = layout;
+      {/* branch spines: hub -> junction -> each node, colored per band */}
+      {branches.map(({ band, color, junction, nodes: bandNodes }) => (
+        <g key={`branch-${band.id}`}>
+          <line x1={HUB.x} y1={HUB.y} x2={junction.x} y2={junction.y}
+            stroke={`${color}50`} strokeWidth={1.5} />
+          {bandNodes.map(({ node, x, y }, j) => {
+            const from = j === 0 ? junction : bandNodes[j - 1];
+            return (
+              <line key={`seg-${node.vmid}`} x1={from.x} y1={from.y} x2={x} y2={y}
+                stroke={`${color}35`} strokeWidth={1.5} />
+            );
+          })}
+        </g>
+      ))}
+
+      {/* animated flow + data packet, hub straight to each node */}
+      {withIndex.map(({ node, x, y, branchColor, gi: idx }) => {
         const len = Math.hypot(x - HUB.x, y - HUB.y);
+        const flowDur = FLOW_DUR[idx % FLOW_DUR.length];
         return (
-          <g key={`line-${node.vmid}`}>
-            {/* base line */}
+          <g key={`flow-${node.vmid}`}>
             <line x1={HUB.x} y1={HUB.y} x2={x} y2={y}
-              stroke={`${color}22`} strokeWidth={1.5} />
-            {/* animated flow dashes */}
-            <line x1={HUB.x} y1={HUB.y} x2={x} y2={y}
-              stroke={`${color}70`} strokeWidth={1.5}
-              strokeDasharray={`8 ${len}`}
+              stroke={`${branchColor}45`} strokeWidth={1}
+              strokeDasharray={`6 ${len}`}
             >
               <animate attributeName="stroke-dashoffset"
-                from="0" to={`-${len + 8}`}
+                from="0" to={`-${len + 6}`}
                 dur={`${flowDur}s`} repeatCount="indefinite" />
             </line>
-            {/* data packet */}
-            <circle r="2.8" fill={color} filter="url(#topo-pkt-glow)" opacity="0.95">
+            <circle r="2.6" fill={branchColor} filter="url(#topo-pkt-glow)" opacity="0.9">
               <animateMotion dur={`${flowDur * 1.1}s`} repeatCount="indefinite"
                 path={`M ${HUB.x} ${HUB.y} L ${x} ${y}`} />
             </circle>
+          </g>
+        );
+      })}
+
+      {/* band junctions */}
+      {branches.map(({ band, color, junction }) => {
+        const short = BAND_SHORT[band.id] ?? band.label;
+        return (
+          <g key={`junction-${band.id}`}>
+            <circle cx={junction.x} cy={junction.y} r={5}
+              fill={`${color}30`} stroke={color} strokeWidth={1.2} filter="url(#topo-glow)" />
+            <text x={junction.x} y={junction.y - 11} textAnchor="middle"
+              fill={color} fontSize={8} fontFamily="monospace" fontWeight={700}
+              style={{ textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              {short}
+            </text>
           </g>
         );
       })}
@@ -137,41 +209,36 @@ export function NetworkTopology({ nodes, className }: Props) {
       </g>
 
       {/* service nodes */}
-      {placed.map(({ node, layout, color, short, pulseDur }, i) => {
-        const { x, y, labelSide } = layout;
-        const anchor = labelSide === 'left'  ? 'end'
-                     : labelSide === 'right' ? 'start'
-                     : 'middle';
-        const lx  = labelSide === 'left'  ? x - GAP
-                  : labelSide === 'right' ? x + GAP
-                  : x;
-        const ly1 = labelSide === 'below' ? y + GAP + 4  : y - 5;
-        const ly2 = labelSide === 'below' ? y + GAP + 15 : y + 7;
+      {withIndex.map(({ node, x, y, labelSide, gi: idx }) => {
+        const color = NODE_PALETTE[idx % NODE_PALETTE.length];
+        const pulseDur = PULSE_DUR[idx % PULSE_DUR.length];
+        const anchor = labelSide === 'left' ? 'end' : 'start';
+        const lx = labelSide === 'left' ? x - GAP : x + GAP;
         return (
           <g key={node.vmid}>
             {/* pulse ring */}
-            <circle cx={x} cy={y} r={18} fill="none" stroke={`${color}25`} strokeWidth={1}>
-              <animate attributeName="r" values="18;30;18" dur={`${pulseDur}s`} repeatCount="indefinite" />
+            <circle cx={x} cy={y} r={16} fill="none" stroke={`${color}25`} strokeWidth={1}>
+              <animate attributeName="r" values="16;27;16" dur={`${pulseDur}s`} repeatCount="indefinite" />
               <animate attributeName="opacity" values="0.5;0;0.5" dur={`${pulseDur}s`} repeatCount="indefinite" />
             </circle>
             {/* glass body */}
-            <circle cx={x} cy={y} r={18}
+            <circle cx={x} cy={y} r={16}
               fill={`${color}12`} stroke={`${color}55`} strokeWidth={1.2}
               filter="url(#topo-glow)" />
             {/* inner ring */}
-            <circle cx={x} cy={y} r={10}
+            <circle cx={x} cy={y} r={9}
               fill={`${color}18`} stroke={`${color}90`} strokeWidth={0.75} />
             {/* center dot with blink */}
-            <circle cx={x} cy={y} r={3.5} fill={color} filter="url(#topo-glow)">
+            <circle cx={x} cy={y} r={3.2} fill={color} filter="url(#topo-glow)">
               <animate attributeName="opacity" values="1;0.45;1"
-                dur={`${2 + i * 0.28}s`} repeatCount="indefinite" />
+                dur={`${2 + idx * 0.28}s`} repeatCount="indefinite" />
             </circle>
-            {/* label — positioned based on which side of the hub the node is on */}
-            <text x={lx} y={ly1} textAnchor={anchor}
+            {/* label */}
+            <text x={lx} y={y - 5} textAnchor={anchor}
               fill="#a1a1aa" fontSize={9.5} fontFamily="monospace" fontWeight={600}>
-              {short}
+              {node.status_name}
             </text>
-            <text x={lx} y={ly2} textAnchor={anchor}
+            <text x={lx} y={y + 7} textAnchor={anchor}
               fill="#52525b" fontSize={8} fontFamily="monospace">
               {node.type === 'vm' ? 'VM' : 'CT'} {node.vmid}
             </text>
