@@ -49,7 +49,7 @@ export default function ArchitecturePage() {
             </div>
           ))}
         </div>
-        <div className="w-full max-w-[720px] mx-auto">
+        <div className="w-full">
           <NetworkTopology nodes={nodes} bands={vmid_bands} className="w-full h-auto" />
         </div>
       </SectionReveal>
