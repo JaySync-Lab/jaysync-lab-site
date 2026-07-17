@@ -1,4 +1,4 @@
-import { getInventory } from '@/lib/inventory';
+import { getInventory, isLiveNode } from '@/lib/inventory';
 import { DocsHero } from '@/components/docs/DocsHero';
 import { NetworkTopology } from '@/components/site/NetworkTopology';
 import { SectionReveal } from '@/components/site/SectionReveal';
@@ -11,8 +11,12 @@ export const metadata = {
   title: 'JaySync-Lab — A homelab, documented properly',
 };
 
+const ONES = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+
 export default function HomePage() {
-  const { nodes, host } = getInventory();
+  const { nodes, host, vmid_bands } = getInventory();
+  const liveCount = nodes.filter(isLiveNode).length;
+  const liveCountWord = ONES[liveCount] ?? String(liveCount);
 
   return (
     <>
@@ -26,7 +30,7 @@ export default function HomePage() {
               The topology
             </p>
             <h2 className="text-2xl! sm:text-3xl! lg:text-4xl! font-bold! text-white tracking-tight">
-              One box. Five services. Zero clutter.
+              One box. {liveCountWord.charAt(0).toUpperCase() + liveCountWord.slice(1)} services. Zero clutter.
             </h2>
             <p className="mt-4 leading-relaxed text-sm sm:text-base max-w-md" style={{ color: '#a1a1aa' }}>
               Everything hangs off a single Proxmox host behind a ZTE router,
@@ -35,7 +39,7 @@ export default function HomePage() {
             </p>
           </div>
           <div className="w-full max-w-[420px] mx-auto">
-            <NetworkTopology nodes={nodes} className="w-full h-auto" />
+            <NetworkTopology nodes={nodes} bands={vmid_bands} className="w-full h-auto" />
           </div>
         </SectionReveal>
 
