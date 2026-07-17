@@ -38,7 +38,7 @@ export default function HomePage() {
               monitored, and documented.
             </p>
           </div>
-          <div className="w-full max-w-[420px] mx-auto">
+          <div className="w-full">
             <NetworkTopology nodes={nodes} bands={vmid_bands} className="w-full h-auto" />
           </div>
         </SectionReveal>
