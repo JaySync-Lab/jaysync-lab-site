@@ -6,6 +6,7 @@ import { NetworkNav } from '@/components/site/NetworkNav';
 import { DocsServiceStrip } from '@/components/docs/DocsServiceStrip';
 import { SystemFetch } from '@/components/site/SystemFetch';
 import { SiteFooter } from '@/components/site/SiteFooter';
+import { SystemStatusBadge } from '@/components/site/SystemStatusBadge';
 
 export const metadata = {
   title: 'JaySync-Lab — A homelab, documented properly',
@@ -37,6 +38,9 @@ export default function HomePage() {
               reachable anywhere through Tailscale. Each node is isolated,
               monitored, and documented.
             </p>
+            <div className="mt-4">
+              <SystemStatusBadge />
+            </div>
           </div>
           <div className="w-full">
             <NetworkTopology nodes={nodes} bands={vmid_bands} className="w-full h-auto" />
