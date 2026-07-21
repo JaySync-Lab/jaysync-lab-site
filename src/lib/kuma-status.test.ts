@@ -33,6 +33,16 @@ describe('aggregateStatuses', () => {
     const result = aggregateStatuses(statuses);
     expect(result).toEqual({ upCount: 1, totalCount: 2, worst: 'unknown' });
   });
+
+  it('worst is down when both a down and an unknown entry are present', () => {
+    const statuses = new Map<string, StatusEntry>([
+      ['Pi-hole', { status: 'up', checkedAt: new Date() }],
+      ['Home Assistant', { status: 'down', checkedAt: new Date() }],
+      ['Grafana', { status: 'unknown', checkedAt: null }],
+    ]);
+    const result = aggregateStatuses(statuses);
+    expect(result).toEqual({ upCount: 1, totalCount: 3, worst: 'down' });
+  });
 });
 
 describe('fetchAllStatuses', () => {
@@ -67,7 +77,7 @@ describe('fetchAllStatuses', () => {
     expect(result.size).toBe(2);
   });
 
-  it('returns an empty map when a monitor has no heartbeat data', async () => {
+  it('records the monitor as unknown when it has no heartbeat data', async () => {
     const pageResponse = { publicGroupList: [{ monitorList: [{ id: 1, name: 'Pi-hole' }] }] };
     const heartbeatResponse = { heartbeatList: {} };
     (fetch as ReturnType<typeof vi.fn>)

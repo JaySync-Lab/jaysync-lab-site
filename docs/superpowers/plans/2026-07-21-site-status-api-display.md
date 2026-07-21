@@ -618,6 +618,15 @@ git add "src/app/(site)/status/page.tsx"
 git commit -m "Add /status page: full per-service breakdown plus aggregate"
 ```
 
+**Implementation note:** the single-file `'use client'` `page.tsx` shown above is
+non-functional as written — `getInventory()` uses `fs.readFileSync`, a server-only
+API, and cannot execute in a Client Component. The actual implementation splits
+this into a Server Component (`src/app/(site)/status/page.tsx`), which does the
+inventory read and `isLiveNode` filter, and a Client Component
+(`src/components/site/StatusPageClient.tsx`), which does the Kuma fetch and
+renders the aggregate banner plus per-service rows — with `page.tsx` passing the
+filtered live-node list down as a prop.
+
 ---
 
 ## Self-Review Notes

@@ -30,10 +30,17 @@ export function StatusPageClient({ liveNodes }: StatusPageClientProps) {
   useEffect(() => {
     if (!baseUrl) return;
     fetchAllStatuses(baseUrl).then((result) => {
-      setStatuses(result);
-      setAggregate(aggregateStatuses(result));
+      // Restrict to exactly the nodes rendered below, so the aggregate banner's
+      // totalCount always matches the number of rows shown -- a Kuma monitor with
+      // no matching inventory node (or vice versa) must not skew the banner.
+      const restricted = new Map<string, StatusEntry>();
+      for (const node of liveNodes) {
+        restricted.set(node.status_name, result.get(node.status_name) ?? { status: 'unknown', checkedAt: null });
+      }
+      setStatuses(restricted);
+      setAggregate(aggregateStatuses(restricted));
     });
-  }, [baseUrl]);
+  }, [baseUrl, liveNodes]);
 
   return (
     <>
