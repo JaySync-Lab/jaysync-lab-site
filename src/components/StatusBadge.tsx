@@ -1,63 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-
-type StatusValue = 'up' | 'down' | 'unknown';
+import { fetchAllStatuses, type StatusValue } from '@/lib/kuma-status';
 
 interface Props {
   monitorName: string;
-}
-
-interface MonitorEntry {
-  id: number;
-  name: string;
-}
-
-interface StatusPageResponse {
-  publicGroupList: Array<{ monitorList: MonitorEntry[] }>;
-}
-
-interface HeartbeatEntry {
-  status: 0 | 1;
-  time: string;
-}
-
-interface HeartbeatResponse {
-  heartbeatList: Record<string, HeartbeatEntry[]>;
-}
-
-async function fetchMonitorStatus(
-  baseUrl: string,
-  monitorName: string,
-): Promise<{ status: StatusValue; checkedAt: Date | null }> {
-  try {
-    const [pageRes, hbRes] = await Promise.all([
-      fetch(`${baseUrl}/api/status-page/default`),
-      fetch(`${baseUrl}/api/status-page/heartbeat/default`),
-    ]);
-    if (!pageRes.ok || !hbRes.ok) return { status: 'unknown', checkedAt: null };
-
-    const page: StatusPageResponse = await pageRes.json();
-    const hb: HeartbeatResponse = await hbRes.json();
-
-    let monitorId: number | null = null;
-    for (const group of page.publicGroupList) {
-      const match = group.monitorList.find((m) => m.name === monitorName);
-      if (match) { monitorId = match.id; break; }
-    }
-    if (monitorId === null) return { status: 'unknown', checkedAt: null };
-
-    const beats = hb.heartbeatList[String(monitorId)];
-    if (!beats || beats.length === 0) return { status: 'unknown', checkedAt: null };
-
-    const latest = beats[beats.length - 1];
-    return {
-      status: latest.status === 1 ? 'up' : 'down',
-      checkedAt: new Date(latest.time),
-    };
-  } catch {
-    return { status: 'unknown', checkedAt: null };
-  }
 }
 
 function timeAgo(date: Date): string {
@@ -82,9 +29,10 @@ export function StatusBadge({ monitorName }: Props) {
 
   useEffect(() => {
     if (!baseUrl) { setLoading(false); return; }
-    fetchMonitorStatus(baseUrl, monitorName).then(({ status: s, checkedAt: t }) => {
-      setStatus(s);
-      setCheckedAt(t);
+    fetchAllStatuses(baseUrl).then((statuses) => {
+      const entry = statuses.get(monitorName);
+      setStatus(entry?.status ?? 'unknown');
+      setCheckedAt(entry?.checkedAt ?? null);
       setLoading(false);
     });
   }, [baseUrl, monitorName]);
